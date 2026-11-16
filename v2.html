@@ -1,0 +1,1838 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hugo Thibault – Data Analytics, Software &amp; Motorsport</title>
+    <meta name="description" content="Portfolio oficial de Hugo Thibault — CX Cockpit Analytics en Orange, Ingeniería Informática, Sim-to-Real Motorsport & Telemetría MoTeC.">
+
+    <!-- Google Fonts: Mona Sans / Syne / Anton (Tight Heavy Sans) + Instrument Serif (Expressive Italic Serif like Brier) + JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+
+    <!-- FontAwesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        lnLight: '#F8F8F3',
+                        lnLightLine: '#CBCBB9',
+                        lnOlive: '#282C20',
+                        lnOliveDark: '#1C1E18',
+                        lnOliveLine: '#363B25',
+                        lnBlack: '#111112',
+                        lnCardDark: '#18191B',
+                        papaya: '#FF5500',
+                        papayaHover: '#FF6D24',
+                        telemetryCyan: '#00F0FF',
+                        telemetryGreen: '#10B981'
+                    },
+                    fontFamily: {
+                        sansTight: ['Anton', 'sans-serif'],
+                        serifItalic: ['Instrument Serif', 'serif'],
+                        bodySans: ['Plus Jakarta Sans', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- GSAP + ScrollTrigger & Lenis Smooth Scroll -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+
+    <style>
+        :root {
+            --bg-light: #F8F8F3;
+            --line-light: #CBCBB9;
+            --bg-olive: #282C20;
+            --bg-olive-dark: #1C1E18;
+            --line-olive: #363B25;
+            --bg-black: #111112;
+            --papaya: #FF5500;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html.lenis, html.lenis body {
+            height: auto;
+        }
+
+        .lenis.lenis-smooth {
+            scroll-behavior: auto !important;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: #111112;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        ::selection {
+            background: var(--papaya);
+            color: #111112;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 5px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #111112;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #FF5500;
+        }
+
+        /* =========================================================
+           LANDO NORRIS SIGNATURE DUAL-TYPOGRAPHY SYSTEM
+           Heavy Tight Uppercase Sans + Expressive Italic Serif
+        ========================================================= */
+        .ln-headline {
+            font-family: 'Anton', sans-serif;
+            text-transform: uppercase;
+            line-height: 0.9;
+            letter-spacing: -0.01em;
+        }
+
+        .ln-serif {
+            font-family: 'Instrument Serif', serif;
+            font-style: italic;
+            font-weight: 400;
+            text-transform: none;
+            letter-spacing: -0.02em;
+            line-height: 0.85;
+            padding-right: 0.08em;
+        }
+
+        /* =========================================================
+           OFF+BRAND SIGNATURE CHAMFERED / CUT-CORNER POLYGONS
+        ========================================================= */
+        .cut-corner-br {
+            clip-path: polygon(0 0, 100% 0, 100% calc(100% - 18px), calc(100% - 18px) 100%, 0 100%);
+        }
+
+        .cut-corner-tr {
+            clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 0 100%);
+        }
+
+        .cut-corner-both {
+            clip-path: polygon(16px 0, 100% 0, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0 100%, 0 16px);
+        }
+
+        .cut-corner-lg {
+            clip-path: polygon(0 0, calc(100% - 28px) 0, 100% 28px, 100% 100%, 28px 100%, 0 calc(100% - 28px));
+        }
+
+        /* =========================================================
+           HALL OF FAME STAGGERED COLUMNS (EXACT LANDONORRIS.COM)
+        ========================================================= */
+        @media (min-width: 1024px) {
+            .hof-col-even {
+                transform: translateY(56px);
+            }
+        }
+
+        .hof-card {
+            position: relative;
+            transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease;
+        }
+
+        .hof-card:hover {
+            transform: translateY(-6px);
+        }
+
+        .hof-card .hof-hover-photo {
+            opacity: 0;
+            transform: scale(1.08);
+            transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .hof-card:hover .hof-hover-photo {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .hof-card .hof-default-helmet {
+            transition: opacity 0.35s ease, transform 0.45s ease;
+        }
+
+        .hof-card:hover .hof-default-helmet {
+            opacity: 0.12;
+            transform: scale(0.92);
+        }
+
+        /* Hand-drawn SVG stroke animation */
+        .signature-path {
+            stroke-dasharray: 1200;
+            stroke-dashoffset: 1200;
+            transition: stroke-dashoffset 2.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .signature-path.drawn {
+            stroke-dashoffset: 0;
+        }
+
+        /* Custom Follower Cursor */
+        @media (pointer: fine) {
+            #customCursor {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 34px;
+                height: 34px;
+                border: 1.5px solid #FF5500;
+                border-radius: 50%;
+                pointer-events: none;
+                z-index: 9999;
+                transform: translate(-50%, -50%);
+                transition: width 0.25s ease, height 0.25s ease, background-color 0.25s ease, border-radius 0.25s ease;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            #customCursor.cursor-pill {
+                width: 118px;
+                height: 32px;
+                border-radius: 4px;
+                background-color: #FF5500;
+            }
+        }
+        @media (pointer: coarse) {
+            #customCursor {
+                display: none !important;
+            }
+        }
+
+        /* Horizontal Strip Photo Tilt & Hover */
+        .strip-photo-card {
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s ease;
+        }
+        .strip-photo-card:hover {
+            transform: scale(1.03) rotate(0deg) !important;
+            z-index: 20;
+        }
+
+        /* Marquee Ticker */
+        @keyframes tickerMove {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .ticker-track {
+            display: flex;
+            width: max-content;
+            animation: tickerMove 28s linear infinite;
+        }
+    </style>
+</head>
+<body class="selection:bg-papaya selection:text-lnBlack">
+
+    <!-- =========================================================================
+         0. GLOBAL ANIMATED TOPOGRAPHIC CONTOUR LINES CANVAS (EXACT LANDO BG)
+    ========================================================================== -->
+    <canvas id="topoBgCanvas" class="fixed inset-0 w-full h-full pointer-events-none z-0"></canvas>
+
+    <!-- Custom Cursor -->
+    <div id="customCursor">
+        <span id="customCursorLabel" class="font-mono text-[10px] font-bold uppercase tracking-widest text-lnBlack opacity-0 transition-opacity"></span>
+    </div>
+
+    <!-- =========================================================================
+         1. PRELOADER ("LOAD NORRIS" 1:1 REPLICA -> "LOAD THIBAULT")
+    ========================================================================== -->
+    <div id="lnPreloader" class="fixed inset-0 z-[10000] bg-lnOliveDark text-lnLight flex flex-col justify-between p-6 sm:p-10 select-none overflow-hidden">
+        <!-- Subtle Olive Contour SVG in Preloader -->
+        <svg class="absolute inset-0 w-full h-full opacity-25 pointer-events-none" viewBox="0 0 1440 900" fill="none">
+            <path d="M-100 180 C 320 40, 580 420, 980 160 C 1220 20, 1380 280, 1600 140" stroke="#363B25" stroke-width="2"/>
+            <path d="M-100 480 C 260 320, 720 680, 1120 400 C 1360 220, 1460 520, 1600 420" stroke="#363B25" stroke-width="2"/>
+            <path d="M-100 740 C 420 580, 820 860, 1220 620 C 1420 470, 1520 770, 1600 670" stroke="#363B25" stroke-width="2"/>
+        </svg>
+
+        <!-- Preloader Top Row -->
+        <div class="relative z-10 flex items-center justify-between">
+            <div class="leading-none">
+                <span class="ln-serif text-2xl text-papaya">Hugo</span>
+                <span class="ln-headline text-xl tracking-wider ml-1">THIBAULT</span>
+            </div>
+            <button id="skipIntroBtn" class="font-mono text-[11px] uppercase tracking-widest text-lnLight/60 hover:text-papaya transition">
+                [ SKIP INTRO ]
+            </button>
+        </div>
+
+        <!-- Center Filling Helmet / Telemetry Emblem -->
+        <div class="relative z-10 my-auto flex flex-col items-center justify-center">
+            <div class="relative w-44 h-44 sm:w-56 sm:h-56 flex items-center justify-center">
+                <!-- Base Wireframe Helmet + HT Emblem -->
+                <svg class="w-full h-full" viewBox="0 0 200 200" fill="none">
+                    <defs>
+                        <clipPath id="preloadFillClip">
+                            <rect id="preloadClipRect" x="0" y="200" width="200" height="200" />
+                        </clipPath>
+                    </defs>
+                    <!-- Background Dim Wireframe -->
+                    <g stroke="#363B25" stroke-width="2.5">
+                        <path d="M40 135 C35 80, 65 35, 115 35 C155 35, 175 65, 175 110 L175 145 L140 165 L55 165 Z" />
+                        <path d="M110 72 L175 82 L175 118 L110 112 Z" />
+                        <path d="M55 135 L125 135" />
+                        <circle cx="90" cy="100" r="6" />
+                    </g>
+                    <!-- Foreground Papaya Filling Layer -->
+                    <g clip-path="url(#preloadFillClip)" stroke="#FF5500" stroke-width="3" fill="rgba(255,85,0,0.12)">
+                        <path d="M40 135 C35 80, 65 35, 115 35 C155 35, 175 65, 175 110 L175 145 L140 165 L55 165 Z" />
+                        <path d="M110 72 L175 82 L175 118 L110 112 Z" fill="#FF5500" />
+                        <path d="M55 135 L125 135" />
+                        <circle cx="90" cy="100" r="6" fill="#FF5500" />
+                    </g>
+                </svg>
+            </div>
+            <div class="font-mono text-[11px] uppercase tracking-[0.25em] text-lnLight/60 mt-4">
+                DATA &amp; MOTORSPORT SINCE 2021
+            </div>
+        </div>
+
+        <!-- Preloader Bottom Percentage + HT1 -->
+        <div class="relative z-10 flex items-end justify-between border-t border-lnLight/10 pt-4">
+            <div class="font-mono text-xs uppercase tracking-widest text-lnLight/50">
+                ORANGE CX // MOTEC i2 // SIM-TO-REAL
+            </div>
+            <div class="flex items-baseline gap-3">
+                <span id="preloadPct" class="ln-headline text-5xl sm:text-7xl text-papaya">0%</span>
+                <span class="font-mono text-xs text-lnLight/70 uppercase tracking-widest">HT1</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- =========================================================================
+         2. FIXED TOP NAVIGATION BAR (EXACT LANDONORRIS.COM HEADER)
+    ========================================================================== -->
+    <header id="mainHeader" class="fixed top-0 left-0 right-0 z-50 px-5 sm:px-10 py-5 flex items-center justify-between pointer-events-none transition-colors duration-300">
+        <!-- Top-Left Dual-Font Wordmark + Subcaption -->
+        <a href="#hero" data-cursor="HOME" class="pointer-events-auto group flex items-center gap-4">
+            <div id="brandLogoText" class="leading-[0.82] transition-colors duration-300 text-lnBlack">
+                <span class="block ln-serif text-3xl sm:text-4xl tracking-tight group-hover:text-papaya transition">Hugo</span>
+                <span class="block ln-headline text-2xl sm:text-3xl tracking-tight">THIBAULT</span>
+            </div>
+            <div id="brandSubText" class="hidden sm:block font-mono text-[10px] uppercase tracking-[0.2em] leading-tight text-lnBlack/60 border-l border-current pl-3">
+                DATA &amp; MOTORSPORT<br>SINCE 2021
+            </div>
+        </a>
+
+        <!-- Top-Right Cut-Corner Store/Lab CTA + Hamburger Button -->
+        <div class="flex items-center gap-2.5 pointer-events-auto">
+            <a href="#telemetry-lab" data-cursor="MOTEC LAB"
+               class="cut-corner-br bg-papaya hover:bg-papayaHover text-lnBlack font-mono font-extrabold text-xs uppercase tracking-widest px-5 py-3.5 flex items-center gap-2 transition shadow-lg shadow-papaya/20">
+                <i class="fa-solid fa-wave-square text-[11px]"></i>
+                <span>TELEMETRY LAB</span>
+            </a>
+
+            <button id="menuToggleBtn" data-cursor="MENU" aria-label="Toggle Menu"
+                    class="cut-corner-br bg-lnBlack text-lnLight hover:bg-papaya hover:text-lnBlack w-12 h-11 flex flex-col items-center justify-center gap-1.5 transition">
+                <span id="burgerLine1" class="w-5 h-0.5 bg-current transition-transform duration-300"></span>
+                <span id="burgerLine2" class="w-5 h-0.5 bg-current transition-transform duration-300"></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- =========================================================================
+         3. FULLSCREEN OVERLAY MENU (OFF+BRAND B&W PHOTO SWAP + PAPAYA STRIKETHROUGH)
+    ========================================================================== -->
+    <div id="fullscreenMenu" class="fixed inset-0 z-40 bg-lnBlack text-lnLight hidden opacity-0 transition-opacity duration-500">
+        <div class="h-full w-full max-w-[1600px] mx-auto px-6 sm:px-12 pt-28 pb-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            
+            <!-- Left Column: B&W Editorial Photo Deck that swaps on nav hover -->
+            <div class="hidden lg:flex lg:col-span-5 h-[68vh] relative items-center justify-center">
+                <div class="relative w-full h-full max-w-md overflow-hidden cut-corner-lg border border-white/15 bg-lnCardDark">
+                    <img id="menuPreviewImg"
+                         src="https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=1000&q=80"
+                         alt="Hugo Thibault Preview"
+                         class="w-full h-full object-cover grayscale contrast-125 transition-all duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-lnBlack via-transparent to-transparent"></div>
+                    <div class="absolute bottom-5 left-5 right-5 flex justify-between items-end font-mono text-xs">
+                        <div>
+                            <span class="text-papaya block uppercase" id="menuPreviewTag">// 01 HOME</span>
+                            <span class="text-white font-bold text-sm" id="menuPreviewCaption">HUGO THIBAULT — MADRID, ES</span>
+                        </div>
+                        <span class="text-white/50">HT // 2026</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: Huge Navigation Links with Papaya Hand-Drawn Strikethrough -->
+            <div class="lg:col-span-7 flex flex-col justify-between h-full">
+                <nav class="space-y-1 sm:space-y-2 my-auto">
+                    <!-- Nav Item 1 -->
+                    <a href="#hero" onclick="closeFullscreenMenu()"
+                       onmouseenter="swapMenuPhoto('https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=1000&q=80', '// 01 HOME', 'INTERACTIVE VISOR & CONTOUR HERO')"
+                       class="menu-nav-link group relative inline-flex items-baseline gap-4 py-1 block">
+                        <span class="font-mono text-xs text-papaya">01</span>
+                        <span class="ln-headline text-5xl sm:text-7xl lg:text-8xl tracking-tight text-lnLight group-hover:text-papaya transition">HOME</span>
+                        <span class="ln-serif text-4xl sm:text-6xl text-lnLight/50 group-hover:text-lnLight transition">Index</span>
+                        <!-- Hand-drawn Papaya marker strike -->
+                        <svg class="absolute left-8 top-1/2 -translate-y-1/2 w-[85%] h-6 pointer-events-none opacity-100" viewBox="0 0 300 24" fill="none">
+                            <path d="M4 14 C 75 6, 180 19, 296 9" stroke="#FF5500" stroke-width="5" stroke-linecap="round"/>
+                        </svg>
+                    </a>
+
+                    <!-- Nav Item 2 -->
+                    <a href="#manifesto" onclick="closeFullscreenMenu()"
+                       onmouseenter="swapMenuPhoto('https://images.unsplash.com/photo-1617531653332-bd46c24f2068?auto=format&fit=crop&w=1000&q=80', '// 02 MESSAGE & TRACKS', 'F4 JARAMA, GT3 SILVERSTONE & MCLAREN LAPONIA')"
+                       class="menu-nav-link group relative flex items-baseline gap-4 py-1">
+                        <span class="font-mono text-xs text-white/40 group-hover:text-papaya">02</span>
+                        <span class="ln-headline text-5xl sm:text-7xl lg:text-8xl tracking-tight text-lnLight group-hover:text-papaya transition">ON</span>
+                        <span class="ln-serif text-5xl sm:text-7xl lg:text-8xl text-papaya">Track</span>
+                    </a>
+
+                    <!-- Nav Item 3 -->
+                    <a href="#portals" onclick="closeFullscreenMenu()"
+                       onmouseenter="swapMenuPhoto('https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1000&q=80', '// 03 OFF TRACK & ORANGE CX', 'CX COCKPIT ANALYTICS & COMPUTER SCIENCE')"
+                       class="menu-nav-link group relative flex items-baseline gap-4 py-1">
+                        <span class="font-mono text-xs text-white/40 group-hover:text-papaya">03</span>
+                        <span class="ln-headline text-5xl sm:text-7xl lg:text-8xl tracking-tight text-lnLight group-hover:text-papaya transition">OFF</span>
+                        <span class="ln-serif text-5xl sm:text-7xl lg:text-8xl text-lnLight/70 group-hover:text-papaya transition">Track</span>
+                    </a>
+
+                    <!-- Nav Item 4 -->
+                    <a href="#hall-of-fame" onclick="closeFullscreenMenu()"
+                       onmouseenter="swapMenuPhoto('https://images.unsplash.com/photo-1544829099-b9a0c07fad1a?auto=format&fit=crop&w=1000&q=80', '// 04 HALL OF FAME', '24H DAYTONA WINNER & F1 ESPORTS TOP 10')"
+                       class="menu-nav-link group relative flex items-baseline gap-4 py-1">
+                        <span class="font-mono text-xs text-white/40 group-hover:text-papaya">04</span>
+                        <span class="ln-headline text-5xl sm:text-7xl lg:text-8xl tracking-tight text-lnLight group-hover:text-papaya transition">HALL OF</span>
+                        <span class="ln-serif text-5xl sm:text-7xl lg:text-8xl text-papaya">Fame</span>
+                    </a>
+
+                    <!-- Nav Item 5 -->
+                    <a href="#telemetry-lab" onclick="closeFullscreenMenu()"
+                       onmouseenter="swapMenuPhoto('https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1000&q=80', '// 05 TELEMETRY LAB', 'MOTEC i2 PRO & PYTHON FASTF1 OSCILLOSCOPE')"
+                       class="menu-nav-link group relative flex items-baseline gap-4 py-1">
+                        <span class="font-mono text-xs text-white/40 group-hover:text-papaya">05</span>
+                        <span class="ln-headline text-5xl sm:text-7xl lg:text-8xl tracking-tight text-lnLight group-hover:text-papaya transition">TELEMETRY</span>
+                        <span class="ln-serif text-5xl sm:text-7xl lg:text-8xl text-lnLight/70 group-hover:text-papaya transition">Lab</span>
+                    </a>
+                </nav>
+
+                <!-- Bottom Socials & Business Enquiries Bar -->
+                <div class="pt-6 border-t border-white/15 flex flex-wrap items-center justify-between gap-4 font-mono text-xs">
+                    <div class="flex flex-wrap items-center gap-6">
+                        <a href="https://github.com/hugothibaultm" target="_blank" rel="noopener" class="text-white/70 hover:text-papaya uppercase tracking-wider">GITHUB ↗</a>
+                        <a href="https://www.linkedin.com" target="_blank" rel="noopener" class="text-white/70 hover:text-papaya uppercase tracking-wider">LINKEDIN ↗</a>
+                        <a href="assets/Certificado_Practicas_Orange_Hugo_Thibault.pdf" target="_blank" rel="noopener" class="text-white/70 hover:text-papaya uppercase tracking-wider">CERTIFICADO ORANGE ↗</a>
+                    </div>
+                    <button onclick="copyEmailToast(); closeFullscreenMenu();" class="text-papaya hover:underline uppercase tracking-widest font-bold">
+                        BUSINESS ENQUIRIES: HUGOTHIBAULTM@GMAIL.COM
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- =========================================================================
+         4. HERO SECTION (1:1 LANDO NORRIS INTERACTIVE VISOR REVEAL ON #F8F8F3)
+    ========================================================================== -->
+    <section id="hero" data-theme="light" class="relative min-h-screen w-full flex flex-col justify-between pt-24 pb-8 px-5 sm:px-10 overflow-hidden select-none">
+        
+        <!-- Giant Faint Background Wireframe Graphic (Like LN4 Logo / Helmet Contour behind portrait) -->
+        <div class="absolute inset-0 flex items-center justify-center pointer-events-none z-0">
+            <span class="ln-headline text-[34vw] text-lnLightLine/30 leading-none tracking-tighter select-none">
+                HT01
+            </span>
+        </div>
+
+        <!-- Top Spacer -->
+        <div class="relative z-10"></div>
+
+        <!-- CENTERPIECE: Interactive Brush/Scratch Helmet Visor Portrait Canvas -->
+        <div class="relative z-10 my-auto flex flex-col items-center justify-center">
+            
+            <!-- Instruction micro-tag above portrait -->
+            <div class="mb-3 inline-flex items-center gap-2 bg-lnBlack/5 border border-lnBlack/15 px-3.5 py-1 rounded-full font-mono text-[11px] uppercase tracking-widest text-lnBlack/70">
+                <span class="w-2 h-2 rounded-full bg-papaya animate-ping"></span>
+                <span id="visorHintText">MOVE CURSOR OVER PORTRAIT TO REVEAL TELEMETRY VISOR</span>
+            </div>
+
+            <!-- Interactive Canvas Wrapper -->
+            <div id="heroVisorContainer"
+                 data-cursor="BRUSH VISOR"
+                 class="relative w-[320px] sm:w-[430px] md:w-[490px] h-[420px] sm:h-[540px] md:h-[600px] cut-corner-lg overflow-hidden shadow-2xl border-2 border-lnBlack/15 bg-lnBlack cursor-crosshair">
+                <canvas id="heroScratchCanvas" class="w-full h-full block"></canvas>
+
+                <!-- Floating Telemetry HUD Badges inside Visor Frame -->
+                <div class="absolute top-4 left-4 right-4 flex justify-between items-center pointer-events-none font-mono text-[10px] uppercase tracking-widest">
+                    <span class="bg-lnBlack/80 text-lnLight px-2.5 py-1 rounded border border-white/10">
+                        DRIVER // <strong class="text-papaya">H. THIBAULT</strong>
+                    </span>
+                    <span class="bg-papaya text-lnBlack font-extrabold px-2.5 py-1 rounded">
+                        MOTEC 60HZ LIVE
+                    </span>
+                </div>
+
+                <!-- Bottom Overlay Name Typography across Portrait Chin -->
+                <div class="absolute bottom-4 left-5 right-5 pointer-events-none flex items-end justify-between">
+                    <div>
+                        <span class="ln-serif text-3xl sm:text-4xl text-papaya block leading-none">Bridging Data</span>
+                        <span class="ln-headline text-3xl sm:text-5xl text-white tracking-tight block leading-none">&amp; MOTORSPORT</span>
+                    </div>
+                    <span class="font-mono text-[11px] text-white/70 bg-lnBlack/80 px-2.5 py-1 rounded border border-white/15">
+                        P1 // DAYTONA 24H
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- HERO BOTTOM BAR: Left "NEXT SESSION" Cut-Corner Card + Right "TAP TO LOCK" Button -->
+        <div class="relative z-20 flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4 pt-4">
+            
+            <!-- Bottom-Left: Next Race / Current Focus Cut-Corner Card (1:1 Lando Norris Next Race Widget) -->
+            <div onclick="document.getElementById('portals').scrollIntoView({behavior:'smooth'})"
+                 data-cursor="EXPLORE"
+                 class="cut-corner-tr bg-lnBlack text-lnLight p-4 sm:p-5 w-full sm:w-80 cursor-pointer group hover:bg-lnOliveDark transition shadow-xl border-l-4 border-papaya">
+                <div class="flex items-center justify-between font-mono text-[10px] uppercase tracking-widest text-papaya mb-2">
+                    <span>● CURRENT COCKPIT &amp; TRACK</span>
+                    <span>MADRID // ES</span>
+                </div>
+                <div class="flex items-center justify-between gap-4">
+                    <div>
+                        <div class="ln-headline text-2xl sm:text-3xl tracking-wide text-white group-hover:text-papaya transition">
+                            ORANGE CX &amp; F4 JARAMA
+                        </div>
+                        <div class="font-mono text-[11px] text-white/60 mt-0.5">
+                            COCKPIT ANALYTICS // SIM-TO-REAL
+                        </div>
+                    </div>
+                    <!-- Mini Jarama Track Map SVG -->
+                    <svg class="w-14 h-14 text-papaya shrink-0 group-hover:scale-110 transition" viewBox="0 0 100 100" fill="none">
+                        <path d="M20 75 L20 30 C20 18, 38 18, 42 28 L48 45 C52 52, 68 48, 72 35 L78 22 C84 15, 90 28, 86 42 L74 68 C70 78, 52 82, 44 72 L35 62 L20 75 Z"
+                              stroke="currentColor" stroke-width="4" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Center Scroll Indicator -->
+            <div class="hidden lg:flex flex-col items-center font-mono text-[10px] uppercase tracking-[0.25em] text-lnBlack/50">
+                <span>SCROLL TO IGNITE</span>
+                <div class="w-px h-8 bg-lnBlack/30 mt-2 relative overflow-hidden">
+                    <div class="w-full h-1/2 bg-papaya animate-bounce"></div>
+                </div>
+            </div>
+
+            <!-- Bottom-Right: "TAP TO LOCK" Interactive Visor Button (Exact Lando Mechanic) -->
+            <button id="tapToLockBtn"
+                    data-cursor="LOCK VISOR"
+                    class="cut-corner-br bg-lnBlack hover:bg-papaya text-lnLight hover:text-lnBlack font-mono font-bold text-xs uppercase tracking-widest px-5 py-3.5 flex items-center gap-3 transition shadow-xl self-end">
+                <i id="lockVisorIcon" class="fa-regular fa-hand-pointer text-papaya group-hover:text-lnBlack"></i>
+                <span id="lockVisorText">TAP TO LOCK VISOR</span>
+            </button>
+
+        </div>
+    </section>
+
+    <!-- =========================================================================
+         5. SECTION 2: "MESSAGE FROM HUGO" + MANIFESTO + HORIZONTAL SCROLL STRIP
+            (DARK OLIVE CHARCOAL #282C20 WITH #363B25 CONTOURS — 1:1 LANDONORRIS.COM)
+    ========================================================================== -->
+    <section id="manifesto" data-theme="olive" class="relative bg-lnOlive text-lnLight pt-28 pb-16 overflow-hidden">
+        
+        <!-- Faded Green-Tinted Portrait Watermark in Center Background -->
+        <div class="absolute top-20 left-1/2 -translate-x-1/2 w-[500px] h-[600px] opacity-10 pointer-events-none mix-blend-luminosity">
+            <img src="https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=900&q=80"
+                 alt="" class="w-full h-full object-cover rounded-full blur-sm">
+        </div>
+
+        <div class="relative z-10 max-w-[1450px] mx-auto px-5 sm:px-10">
+            
+            <!-- Small Centered Header like Lando's "MESSAGE FROM LANDO" -->
+            <div class="text-center mb-12">
+                <div class="font-mono text-xs uppercase tracking-[0.3em] text-papaya font-bold">
+                    MESSAGE FROM HUGO
+                </div>
+                <div class="font-mono text-[11px] uppercase tracking-[0.2em] text-lnLight/50 mt-1">
+                    DATA ANALYTICS &amp; MOTORSPORT SINCE 2021
+                </div>
+            </div>
+
+            <!-- Monumental Mixed Typography Manifesto (Exact Lando Norris Dual-Font Layout) -->
+            <div class="max-w-6xl mx-auto text-center">
+                <h2 class="ln-headline text-4xl sm:text-6xl md:text-7xl lg:text-[5.6rem] leading-[0.94] tracking-tight text-lnLight">
+                    <span class="ln-serif text-papaya text-5xl sm:text-7xl md:text-8xl lg:text-[6.4rem]">Redefining</span>
+                    LIMITS, FIGHTING FOR
+                    <span class="ln-serif text-papaya text-5xl sm:text-7xl md:text-8xl lg:text-[6.4rem]">wins,</span>
+                    BRINGING IT ALL IN ALL WAYS. DEFINING A
+                    <span class="ln-serif text-papaya text-5xl sm:text-7xl md:text-8xl lg:text-[6.4rem]">legacy</span>
+                    IN DATA ANALYTICS &amp; MOTORSPORT ON AND OFF THE TRACK.
+                </h2>
+
+                <!-- Narrative Sub-Paragraph Bridging Sim-to-Real & Orange CX -->
+                <p class="mt-10 max-w-3xl mx-auto text-base sm:text-xl text-lnLight/80 leading-relaxed font-normal">
+                    Mi obsesión por los datos no nació en un aula, sino buscando <strong class="text-papaya">décimas de segundo en MoTeC</strong> para ganar las <strong class="text-white">24 Horas de Daytona</strong> y competir en el <strong class="text-white">Top 10 de España de F1 Esports</strong>. Esa misma precisión matemática me llevó a pilotar un <strong class="text-white">Fórmula 4 real en el Jarama</strong>, un <strong class="text-white">GT3 en Silverstone</strong> y un <strong class="text-white">McLaren sobre hielo en Laponia</strong>, y hoy impulsa mi trabajo en <strong class="text-papaya">CX Cockpit Analytics en Orange España</strong> mientras finalizo Ingeniería Informática.
+                </p>
+
+                <!-- Animated Hand-Drawn SVG Signature in Papaya (#FF5500) -->
+                <div class="mt-10 flex flex-col items-center justify-center">
+                    <svg id="hugoSignatureSvg" class="w-64 sm:w-80 h-24 overflow-visible" viewBox="0 0 400 110" fill="none">
+                        <path class="signature-path"
+                              d="M28 78 C45 20, 52 18, 42 88 C38 62, 68 48, 86 65 C102 42, 118 75, 135 55 C152 38, 165 92, 142 98 C122 102, 148 52, 182 58 C215 62, 232 22, 224 82 C220 52, 255 44, 276 64 C295 80, 325 45, 368 52 M195 34 L255 28 M75 95 C150 86, 260 84, 378 76"
+                              stroke="#FF5500" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span class="font-mono text-[10px] uppercase tracking-[0.3em] text-lnLight/40 mt-1">
+                        HUGO THIBAULT // DRIVER &amp; DATA ENGINEER
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- =====================================================================
+             SECTION 3: HORIZONTAL SCROLL PHOTO & QUOTE GALLERY STRIP
+             (Pinned GSAP ScrollTrigger — Exact Lando Norris Photo Strip)
+        ====================================================================== -->
+        <div id="horizontalStripWrapper" class="relative mt-20 pt-10 pb-20 overflow-hidden">
+            <div class="px-5 sm:px-10 mb-6 flex items-center justify-between font-mono text-xs text-lnLight/50 uppercase tracking-widest">
+                <span>// SIM-TO-REAL &amp; CORPORATE CHRONICLES (SCROLL OR DRAG)</span>
+                <span class="text-papaya">[ CLICK ANY FRAME FOR TELEMETRY LOG ]</span>
+            </div>
+
+            <!-- Horizontal Track -->
+            <div id="horizontalStripTrack" class="flex items-center gap-10 sm:gap-16 px-6 sm:px-16 w-max">
+                
+                <!-- Photo Card 1: Jarama F4 -->
+                <div onclick="openTelemetryModal(0)" data-cursor="VIEW LOG"
+                     class="strip-photo-card w-[300px] sm:w-[380px] shrink-0 -rotate-2 cursor-pointer group">
+                    <div class="cut-corner-both overflow-hidden border-2 border-white/15 group-hover:border-papaya bg-lnBlack h-[390px] sm:h-[460px] relative">
+                        <img src="https://images.unsplash.com/photo-1617531653332-bd46c24f2068?auto=format&fit=crop&w=900&q=85"
+                             alt="Formula 4 Jarama"
+                             class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-lnBlack/90 via-transparent to-transparent"></div>
+                        <div class="absolute bottom-5 left-5 right-5">
+                            <span class="font-mono text-xs text-papaya uppercase">Jarama, 2024</span>
+                            <h3 class="ln-headline text-3xl text-white mt-0.5">FORMULA 4 TEST SESSION</h3>
+                            <p class="font-mono text-[11px] text-white/60 mt-1">HIGH DOWNFORCE // 98.2% SIM CORRELATION</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Photo Card 2: 24h Daytona Winner -->
+                <div onclick="openTelemetryModal(1)" data-cursor="VIEW LOG"
+                     class="strip-photo-card w-[280px] sm:w-[340px] shrink-0 rotate-2 translate-y-6 cursor-pointer group">
+                    <div class="cut-corner-both overflow-hidden border-2 border-white/15 group-hover:border-papaya bg-lnBlack h-[350px] sm:h-[410px] relative">
+                        <img src="https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&w=900&q=85"
+                             alt="24h Daytona Winner"
+                             class="w-full h-full object-cover transition duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-lnBlack/90 via-transparent to-transparent"></div>
+                        <div class="absolute bottom-5 left-5 right-5">
+                            <span class="font-mono text-xs text-telemetryGreen uppercase">Daytona, 2023</span>
+                            <h3 class="ln-headline text-3xl text-white mt-0.5">24H DAYTONA WINNER (P1)</h3>
+                            <p class="font-mono text-[11px] text-white/60 mt-1">ENDURANCE STRATEGY &amp; NIGHT STINT</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quote Block 1 in between photos (Exact Lando Norris layout) -->
+                <div class="w-[340px] sm:w-[480px] shrink-0 px-4">
+                    <blockquote class="ln-headline text-3xl sm:text-5xl text-lnLight leading-[0.95]">
+                        “IT DOESN’T MATTER WHERE YOU START, IT’S HOW YOU
+                        <span class="ln-serif text-papaya text-4xl sm:text-6xl">progress</span>
+                        FROM THERE — LA TELEMETRÍA NUNCA MIENTE.”
+                    </blockquote>
+                    <div class="mt-4 font-mono text-xs uppercase tracking-widest text-papaya">
+                        — HUGO THIBAULT // SIM-TO-REAL METHODOLOGY
+                    </div>
+                </div>
+
+                <!-- Photo Card 3: Silverstone GT3 -->
+                <div onclick="openTelemetryModal(2)" data-cursor="VIEW LOG"
+                     class="strip-photo-card w-[310px] sm:w-[390px] shrink-0 -rotate-1 -translate-y-4 cursor-pointer group">
+                    <div class="cut-corner-both overflow-hidden border-2 border-white/15 group-hover:border-papaya bg-lnBlack h-[390px] sm:h-[460px] relative">
+                        <img src="https://images.unsplash.com/photo-1544829099-b9a0c07fad1a?auto=format&fit=crop&w=900&q=85"
+                             alt="Silverstone GT3"
+                             class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-lnBlack/90 via-transparent to-transparent"></div>
+                        <div class="absolute bottom-5 left-5 right-5">
+                            <span class="font-mono text-xs text-papaya uppercase">Silverstone, 2024</span>
+                            <h3 class="ln-headline text-3xl text-white mt-0.5">GT3 BRITISH GP CIRCUIT</h3>
+                            <p class="font-mono text-[11px] text-white/60 mt-1">MAGGOTTS-BECKETTS // &gt;2.2G LATERAL</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Photo Card 4: McLaren Arctic Lapland -->
+                <div onclick="openTelemetryModal(3)" data-cursor="VIEW LOG"
+                     class="strip-photo-card w-[290px] sm:w-[360px] shrink-0 rotate-2 translate-y-4 cursor-pointer group">
+                    <div class="cut-corner-both overflow-hidden border-2 border-white/15 group-hover:border-papaya bg-lnBlack h-[370px] sm:h-[430px] relative">
+                        <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=900&q=85"
+                             alt="McLaren Arctic Lapland"
+                             class="w-full h-full object-cover transition duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-lnBlack/90 via-transparent to-transparent"></div>
+                        <div class="absolute bottom-5 left-5 right-5">
+                            <span class="font-mono text-xs text-telemetryCyan uppercase">Lapland, 2024</span>
+                            <h3 class="ln-headline text-3xl text-white mt-0.5">MCLAREN ARCTIC ICE</h3>
+                            <p class="font-mono text-[11px] text-white/60 mt-1">FINLAND -22°C // LOW-MU YAW CONTROL</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quote Block 2 -->
+                <div class="w-[340px] sm:w-[480px] shrink-0 px-4">
+                    <blockquote class="ln-headline text-3xl sm:text-5xl text-lnLight leading-[0.95]">
+                        “FROM THE PIT-WALL IN
+                        <span class="ln-serif text-papaya text-4xl sm:text-6xl">Monaco</span>
+                        TO EXECUTIVE COCKPITS AT
+                        <span class="ln-serif text-papaya text-4xl sm:text-6xl">Orange,</span>
+                        EVERY MILLISECOND COUNTS.”
+                    </blockquote>
+                    <div class="mt-4 font-mono text-xs uppercase tracking-widest text-papaya">
+                        — DATA ENGINEERING &amp; TELEMETRY
+                    </div>
+                </div>
+
+                <!-- Photo Card 5: Monaco GP & 24h Dubai Paddock -->
+                <div onclick="openTelemetryModal(4)" data-cursor="VIEW LOG"
+                     class="strip-photo-card w-[300px] sm:w-[380px] shrink-0 -rotate-2 cursor-pointer group">
+                    <div class="cut-corner-both overflow-hidden border-2 border-white/15 group-hover:border-papaya bg-lnBlack h-[390px] sm:h-[450px] relative">
+                        <img src="https://images.unsplash.com/photo-1532906619279-a4b7267faa66?auto=format&fit=crop&w=900&q=85"
+                             alt="Monaco & Dubai Paddock"
+                             class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-lnBlack/90 via-transparent to-transparent"></div>
+                        <div class="absolute bottom-5 left-5 right-5">
+                            <span class="font-mono text-xs text-papaya uppercase">Monaco &amp; Dubai, 2024</span>
+                            <h3 class="ln-headline text-3xl text-white mt-0.5">VIP PADDOCK &amp; PIT-WALL</h3>
+                            <p class="font-mono text-[11px] text-white/60 mt-1">LIVE RACE STRATEGY &amp; BOXES OPS</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================================================================
+         6. SECTION 4: "ON TRACK" & "OFF TRACK" SPLIT ENTRANCE PORTALS
+            (OFF-WHITE #F8F8F3 WITH HAND-DRAWN PAPAYA MARKER TITLES)
+    ========================================================================== -->
+    <section id="portals" data-theme="light" class="relative bg-lnLight text-lnBlack py-28 sm:py-36 px-5 sm:px-10">
+        <div class="max-w-[1550px] mx-auto">
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+                
+                <!-- LEFT PORTAL: ON TRACK (Motorsport, Sim-to-Real, Telemetry) -->
+                <div class="group relative bg-lnBlack text-lnLight cut-corner-lg p-8 sm:p-12 flex flex-col justify-between overflow-hidden shadow-2xl border-2 border-lnBlack hover:border-papaya transition">
+                    <img src="https://images.unsplash.com/photo-1617531653332-bd46c24f2068?auto=format&fit=crop&w=1200&q=85"
+                         alt="On Track Motorsport"
+                         class="absolute inset-0 w-full h-full object-cover opacity-35 group-hover:scale-105 group-hover:opacity-50 transition duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-lnBlack via-lnBlack/70 to-lnBlack/30"></div>
+
+                    <!-- Top Portal Tag -->
+                    <div class="relative z-10 flex items-center justify-between font-mono text-xs uppercase tracking-widest">
+                        <span class="bg-papaya text-lnBlack font-extrabold px-3 py-1 rounded">01 // SIM-TO-REAL &amp; RACING</span>
+                        <span class="text-white/60">F4 // GT3 // 24H DAYTONA</span>
+                    </div>
+
+                    <!-- Center Monumental Title with Hand-Drawn Papaya Marker "ON" -->
+                    <div class="relative z-10 my-16 sm:my-24">
+                        <div class="relative inline-block">
+                            <!-- Hand-drawn scribble circle around ON -->
+                            <svg class="absolute -inset-3 w-[120%] h-[130%] pointer-events-none" viewBox="0 0 180 90" fill="none">
+                                <path d="M15 48 C12 18, 165 10, 168 45 C170 78, 25 84, 22 44" stroke="#FF5500" stroke-width="4" stroke-linecap="round"/>
+                            </svg>
+                            <span class="ln-serif text-6xl sm:text-8xl text-papaya relative z-10 pr-3">On</span>
+                        </div>
+                        <span class="ln-headline text-6xl sm:text-8xl lg:text-9xl text-white tracking-tight block mt-1">
+                            TRACK
+                        </span>
+                        <p class="mt-4 text-white/80 max-w-lg text-base sm:text-lg leading-relaxed">
+                            Ganador de las <strong class="text-white">24h de Daytona</strong>, <strong class="text-white">Top 10 Nacional en F1 Esports</strong> (KR Gaming), Campeón F4 Regional y piloto en tests reales de <strong class="text-papaya">Fórmula 4 (Jarama)</strong>, <strong class="text-papaya">GT3 (Silverstone)</strong> y <strong class="text-papaya">McLaren Ice (Laponia)</strong>.
+                        </p>
+                    </div>
+
+                    <!-- Bottom Specs & Action -->
+                    <div class="relative z-10 pt-6 border-t border-white/15 flex flex-wrap items-center justify-between gap-4">
+                        <div class="flex gap-6 font-mono text-xs">
+                            <div><span class="text-white/50 block">ENDURANCE</span><strong class="text-telemetryGreen">P1 DAYTONA 24H</strong></div>
+                            <div><span class="text-white/50 block">TELEMETRY</span><strong class="text-papaya">+5 YEARS MOTEC</strong></div>
+                        </div>
+                        <a href="#telemetry-lab" data-cursor="ENTER LAB"
+                           class="cut-corner-br bg-papaya hover:bg-papayaHover text-lnBlack font-mono font-extrabold text-xs uppercase tracking-widest px-6 py-3.5 transition">
+                            EXPLORE ON TRACK →
+                        </a>
+                    </div>
+                </div>
+
+                <!-- RIGHT PORTAL: OFF TRACK (Orange CX Analytics, Computer Science, Python/SQL) -->
+                <div class="group relative bg-lnOliveDark text-lnLight cut-corner-lg p-8 sm:p-12 flex flex-col justify-between overflow-hidden shadow-2xl border-2 border-lnBlack hover:border-papaya transition">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=85"
+                         alt="Off Track Data Engineering"
+                         class="absolute inset-0 w-full h-full object-cover opacity-30 group-hover:scale-105 group-hover:opacity-45 transition duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-lnOliveDark via-lnOliveDark/75 to-lnOliveDark/30"></div>
+
+                    <!-- Top Portal Tag -->
+                    <div class="relative z-10 flex items-center justify-between font-mono text-xs uppercase tracking-widest">
+                        <span class="bg-lnLight text-lnBlack font-extrabold px-3 py-1 rounded">02 // DATA &amp; SOFTWARE ENGINEERING</span>
+                        <span class="text-papaya">ORANGE ESPAÑA // B.SC. CS</span>
+                    </div>
+
+                    <!-- Center Monumental Title with Hand-Drawn Papaya Marker "OFF" -->
+                    <div class="relative z-10 my-16 sm:my-24">
+                        <div class="relative inline-block">
+                            <svg class="absolute -bottom-2 left-0 w-full h-5 pointer-events-none" viewBox="0 0 200 20" fill="none">
+                                <path d="M5 14 C65 4, 140 18, 195 7" stroke="#FF5500" stroke-width="5" stroke-linecap="round"/>
+                            </svg>
+                            <span class="ln-serif text-6xl sm:text-8xl text-papaya relative z-10 pr-3">Off</span>
+                        </div>
+                        <span class="ln-headline text-6xl sm:text-8xl lg:text-9xl text-white tracking-tight block mt-1">
+                            TRACK
+                        </span>
+                        <p class="mt-4 text-white/80 max-w-lg text-base sm:text-lg leading-relaxed">
+                            Analista en <strong class="text-papaya">CX Cockpit Analytics en Orange España</strong> y estudiante de <strong class="text-white">Ingeniería Informática</strong>. Arquitectura de pipelines en Python (FastF1, Pandas), SQL, Power BI y cuadros de mando ejecutivos en tiempo real.
+                        </p>
+                    </div>
+
+                    <!-- Bottom Specs & Action -->
+                    <div class="relative z-10 pt-6 border-t border-white/15 flex flex-wrap items-center justify-between gap-4">
+                        <div class="flex gap-6 font-mono text-xs">
+                            <div><span class="text-white/50 block">CORPORATE ROLE</span><strong class="text-telemetryCyan">ORANGE CX ANALYTICS</strong></div>
+                            <div><span class="text-white/50 block">STACK</span><strong class="text-white">PYTHON / SQL / POWER BI</strong></div>
+                        </div>
+                        <a href="assets/Certificado_Practicas_Orange_Hugo_Thibault.pdf" target="_blank" rel="noopener" data-cursor="VER PDF"
+                           class="cut-corner-br bg-lnLight hover:bg-papaya text-lnBlack font-mono font-extrabold text-xs uppercase tracking-widest px-6 py-3.5 transition">
+                            CERTIFICADO ORANGE ↗
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================================================================
+         7. SECTION 5: "HELMETS & MILESTONES — HALL OF FAME"
+            (NEAR-BLACK #111112, STAGGERED 4-COL CUT-CORNER GRID WITH HOVER SWAP)
+    ========================================================================== -->
+    <section id="hall-of-fame" data-theme="dark" class="relative bg-lnBlack text-lnLight py-28 sm:py-36 px-5 sm:px-10 border-t border-white/10">
+        <div class="max-w-[1550px] mx-auto">
+            
+            <!-- Exact Lando Norris Hall of Fame Header -->
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+                <div>
+                    <span class="ln-serif text-4xl sm:text-6xl text-papaya block leading-none">Helmets, Track &amp; Code</span>
+                    <h2 class="ln-headline text-6xl sm:text-8xl lg:text-9xl text-white tracking-tight mt-1">
+                        HALL OF FAME
+                    </h2>
+                </div>
+                <p class="font-mono text-xs sm:text-sm text-white/60 max-w-md uppercase tracking-wider leading-relaxed">
+                    DESDE VICTORIAS DE 24 HORAS Y TESTS EN MONOPLAZA HASTA PIPELINES DE TELEMETRÍA Y BUSINESS INTELLIGENCE EN ORANGE. PASA EL RATÓN O HAZ CLIC EN CADA CELDA.
+                </p>
+            </div>
+
+            <!-- 4-Column Staggered Grid (12 Iconic Items — Generated & Interactive) -->
+            <div id="hofGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 pb-16">
+                <!-- Populated dynamically by JS for clean SVG helmet/icon + hover photo crossfade -->
+            </div>
+
+        </div>
+    </section>
+
+    <!-- =========================================================================
+         8. SECTION 6: 3D-STYLED CIRCUIT RIBBON & LIVE MOTEC TELEMETRY LAB
+            (INSPIRED BY LANDO'S 3D CALENDAR TRACK RIBBON + HUGO'S MOTEC LAB)
+    ========================================================================== -->
+    <section id="telemetry-lab" data-theme="dark" class="relative bg-lnBlack text-lnLight py-24 sm:py-32 px-5 sm:px-10 border-t border-white/10 overflow-hidden">
+        <div class="max-w-[1550px] mx-auto">
+            
+            <!-- Header + Circuit Switcher -->
+            <div class="flex flex-col lg:flex-row lg:items-end justify-between mb-12 gap-8">
+                <div>
+                    <span class="ln-serif text-4xl sm:text-5xl text-papaya block leading-none">MoTeC i2 Pro &amp; FastF1</span>
+                    <h2 class="ln-headline text-5xl sm:text-7xl lg:text-8xl text-white tracking-tight mt-1">
+                        LIVE TELEMETRY LAB
+                    </h2>
+                </div>
+
+                <!-- 3 Circuit Selector Buttons with Cut Corners -->
+                <div class="flex flex-wrap gap-2.5">
+                    <button onclick="switchTelemetryCircuit('jarama')" id="circuitBtn-jarama"
+                            class="circuit-tab cut-corner-br bg-papaya text-lnBlack font-mono font-extrabold text-xs uppercase tracking-widest px-5 py-3.5 transition">
+                        01. JARAMA F4 (-0.248s)
+                    </button>
+                    <button onclick="switchTelemetryCircuit('silverstone')" id="circuitBtn-silverstone"
+                            class="circuit-tab cut-corner-br bg-lnCardDark text-white/70 hover:text-white border border-white/15 font-mono font-bold text-xs uppercase tracking-widest px-5 py-3.5 transition">
+                        02. SILVERSTONE GT3 (-0.412s)
+                    </button>
+                    <button onclick="switchTelemetryCircuit('spa')" id="circuitBtn-spa"
+                            class="circuit-tab cut-corner-br bg-lnCardDark text-white/70 hover:text-white border border-white/15 font-mono font-bold text-xs uppercase tracking-widest px-5 py-3.5 transition">
+                        03. SPA 24H (-0.680s)
+                    </button>
+                </div>
+            </div>
+
+            <!-- Main Pit-Wall Telemetry Grid: Left 3D Track Ribbon SVG + Right Dual Oscilloscope Canvases -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 bg-lnCardDark border border-white/15 cut-corner-lg p-6 sm:p-8 shadow-2xl">
+                
+                <!-- Left 4 Cols: Glowing 3D Circuit Ribbon & Sector Readout -->
+                <div class="lg:col-span-4 flex flex-col justify-between bg-lnBlack/80 border border-white/10 p-6 cut-corner-both">
+                    <div>
+                        <div class="flex items-center justify-between font-mono text-xs text-papaya uppercase tracking-widest">
+                            <span id="ribbonTrackName">CIRCUITO DEL JARAMA // 3.850 KM</span>
+                            <span>FIA F4</span>
+                        </div>
+
+                        <!-- 3D-Styled Glowing Circuit Ribbon SVG -->
+                        <div class="my-8 h-56 flex items-center justify-center relative">
+                            <svg id="circuitRibbonSvg" class="w-full h-full overflow-visible" viewBox="0 0 300 220" fill="none">
+                                <!-- 3D Extrusion Shadow Path -->
+                                <path id="ribbonShadowPath"
+                                      d="M45 170 L45 65 C45 35, 95 35, 105 60 L120 105 C130 125, 175 115, 190 80 L210 45 C230 28, 260 55, 245 95 L210 160 C195 185, 140 190, 115 165 L85 140 L45 170 Z"
+                                      stroke="rgba(255,85,0,0.22)" stroke-width="14" stroke-linejoin="round" transform="translate(0, 10)"/>
+                                <!-- Main Glowing Papaya Ribbon -->
+                                <path id="ribbonMainPath"
+                                      d="M45 170 L45 65 C45 35, 95 35, 105 60 L120 105 C130 125, 175 115, 190 80 L210 45 C230 28, 260 55, 245 95 L210 160 C195 185, 140 190, 115 165 L85 140 L45 170 Z"
+                                      stroke="#FF5500" stroke-width="6" stroke-linejoin="round"/>
+                                <!-- Live Position Marker Dot synced with Canvas Crosshair -->
+                                <circle id="ribbonCarDot" cx="105" cy="60" r="8" fill="#00F0FF" stroke="#111112" stroke-width="3"/>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- Live Readout Box -->
+                    <div class="space-y-3 border-t border-white/10 pt-4 font-mono text-xs">
+                        <div class="flex justify-between"><span class="text-white/50">DISTANCE:</span><strong id="labDist" class="text-white">1,420 m</strong></div>
+                        <div class="flex justify-between"><span class="text-white/50">SPEED (OPT / REF):</span><strong id="labSpeed" class="text-papaya">224 km/h</strong></div>
+                        <div class="flex justify-between"><span class="text-white/50">THROTTLE / BRAKE:</span><strong id="labPedals" class="text-telemetryGreen">100% / 0%</strong></div>
+                        <div class="flex justify-between"><span class="text-white/50">LAP DELTA:</span><strong id="labDelta" class="text-telemetryGreen font-extrabold">-0.248s</strong></div>
+                    </div>
+                </div>
+
+                <!-- Right 8 Cols: Interactive Dual-Channel MoTeC Oscilloscope -->
+                <div class="lg:col-span-8 flex flex-col justify-between space-y-6">
+                    <div>
+                        <div class="flex flex-wrap items-center justify-between gap-2 font-mono text-[11px] text-white/60 uppercase mb-2">
+                            <span>CHANNEL 01 // SPEED TRACE (KM/H) — <strong class="text-papaya">■ H. THIBAULT</strong> vs <strong class="text-telemetryCyan">-- REFERENCE</strong></span>
+                            <span>SCRUB CURSOR ACROSS GRAPH</span>
+                        </div>
+                        <div class="h-52 sm:h-60 w-full bg-lnBlack border border-white/10 rounded overflow-hidden">
+                            <canvas id="motecSpeedCanvas" class="w-full h-full block cursor-crosshair"></canvas>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="flex flex-wrap items-center justify-between gap-2 font-mono text-[11px] text-white/60 uppercase mb-2">
+                            <span>CHANNEL 02 // THROTTLE (%) <strong class="text-telemetryGreen">[GREEN]</strong> &amp; BRAKE PRESSURE (BAR) <strong class="text-papaya">[RED]</strong></span>
+                            <span>SAMPLING RATE: 60 HZ</span>
+                        </div>
+                        <div class="h-36 sm:h-40 w-full bg-lnBlack border border-white/10 rounded overflow-hidden">
+                            <canvas id="motecPedalCanvas" class="w-full h-full block cursor-crosshair"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Engineering Note -->
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+                        <div class="bg-lnBlack/70 border border-white/10 p-3.5 rounded">
+                            <span class="font-mono text-[10px] text-papaya uppercase block">01 // TRAIL-BRAKING</span>
+                            <p id="noteBrake" class="text-xs text-white/80 mt-1">Frenada regresiva a 94 bar rotando el eje delantero hacia el ápice.</p>
+                        </div>
+                        <div class="bg-lnBlack/70 border border-white/10 p-3.5 rounded">
+                            <span class="font-mono text-[10px] text-telemetryCyan uppercase block">02 // MINIMUM APEX SPEED</span>
+                            <p id="noteApex" class="text-xs text-white/80 mt-1">+6.5 km/h en el vértice con menor ángulo de dirección.</p>
+                        </div>
+                        <div class="bg-lnBlack/70 border border-white/10 p-3.5 rounded">
+                            <span class="font-mono text-[10px] text-telemetryGreen uppercase block">03 // EXIT TRACTION</span>
+                            <p id="noteExit" class="text-xs text-white/80 mt-1">100% acelerador 0.14s antes consolidando -0.248s en meta.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- =========================================================================
+         9. SECTION 7: PARTNERS, TECH STACK & COLLABS
+            (OFF-WHITE #F8F8F3 WITH HAND-DRAWN PAPAYA MARKER SCRIBBLE)
+    ========================================================================== -->
+    <section id="partners" data-theme="light" class="relative bg-lnLight text-lnBlack py-24 sm:py-32 px-5 sm:px-10">
+        <div class="max-w-[1550px] mx-auto">
+            
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+                <div>
+                    <div class="relative inline-block mb-2">
+                        <span class="font-mono text-xs uppercase tracking-[0.25em] font-extrabold bg-papaya text-lnBlack px-3 py-1 rounded">
+                            STACK, TEAMS &amp; COLLABS
+                        </span>
+                    </div>
+                    <h2 class="ln-headline text-5xl sm:text-7xl lg:text-8xl text-lnBlack leading-none mt-2">
+                        PARTNERS <span class="ln-serif text-papaya text-6xl sm:text-8xl">&amp; Arsenal</span>
+                    </h2>
+                </div>
+                <p class="font-mono text-xs text-lnBlack/65 max-w-md uppercase tracking-wider">
+                    EMPRESAS, EQUIPOS Y TECNOLOGÍAS CON LAS QUE HE TRABAJADO EN INGENIERÍA DE DATOS, DESARROLLO DE SOFTWARE Y COMPETICIÓN.
+                </p>
+            </div>
+
+            <!-- 4x2 Clean Offbrand Partner/Tech Grid -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
+                <div class="cut-corner-br bg-white border-2 border-lnBlack/15 hover:border-papaya p-7 flex flex-col justify-between h-44 group transition shadow-sm">
+                    <span class="font-mono text-[10px] uppercase tracking-widest text-papaya font-bold">01 // CORPORATE BI</span>
+                    <div>
+                        <div class="ln-headline text-3xl sm:text-4xl text-lnBlack group-hover:text-papaya transition">ORANGE ESPAÑA</div>
+                        <div class="font-mono text-xs text-lnBlack/60 mt-1">CX Cockpit Analytics</div>
+                    </div>
+                </div>
+
+                <div class="cut-corner-br bg-white border-2 border-lnBlack/15 hover:border-papaya p-7 flex flex-col justify-between h-44 group transition shadow-sm">
+                    <span class="font-mono text-[10px] uppercase tracking-widest text-papaya font-bold">02 // TELEMETRY ECU</span>
+                    <div>
+                        <div class="ln-headline text-3xl sm:text-4xl text-lnBlack group-hover:text-papaya transition">MOTEC i2 PRO</div>
+                        <div class="font-mono text-xs text-lnBlack/60 mt-1">Motorsport Data Analysis</div>
+                    </div>
+                </div>
+
+                <div class="cut-corner-br bg-white border-2 border-lnBlack/15 hover:border-papaya p-7 flex flex-col justify-between h-44 group transition shadow-sm">
+                    <span class="font-mono text-[10px] uppercase tracking-widest text-papaya font-bold">03 // DATA SCIENCE</span>
+                    <div>
+                        <div class="ln-headline text-3xl sm:text-4xl text-lnBlack group-hover:text-papaya transition">PYTHON &amp; FASTF1</div>
+                        <div class="font-mono text-xs text-lnBlack/60 mt-1">Pandas, NumPy &amp; ETL</div>
+                    </div>
+                </div>
+
+                <div class="cut-corner-br bg-white border-2 border-lnBlack/15 hover:border-papaya p-7 flex flex-col justify-between h-44 group transition shadow-sm">
+                    <span class="font-mono text-[10px] uppercase tracking-widest text-papaya font-bold">04 // EXECUTIVE DASHBOARDS</span>
+                    <div>
+                        <div class="ln-headline text-3xl sm:text-4xl text-lnBlack group-hover:text-papaya transition">POWER BI &amp; SQL</div>
+                        <div class="font-mono text-xs text-lnBlack/60 mt-1">DAX, PostgreSQL &amp; Oracle</div>
+                    </div>
+                </div>
+
+                <div class="cut-corner-br bg-white border-2 border-lnBlack/15 hover:border-papaya p-7 flex flex-col justify-between h-44 group transition shadow-sm">
+                    <span class="font-mono text-[10px] uppercase tracking-widest text-papaya font-bold">05 // ESPORTS TEAM</span>
+                    <div>
+                        <div class="ln-headline text-3xl sm:text-4xl text-lnBlack group-hover:text-papaya transition">KR GAMING F1</div>
+                        <div class="font-mono text-xs text-lnBlack/60 mt-1">Top 10 Spain F1 Esports</div>
+                    </div>
+                </div>
+
+                <div class="cut-corner-br bg-white border-2 border-lnBlack/15 hover:border-papaya p-7 flex flex-col justify-between h-44 group transition shadow-sm">
+                    <span class="font-mono text-[10px] uppercase tracking-widest text-papaya font-bold">06 // SIMULATOR</span>
+                    <div>
+                        <div class="ln-headline text-3xl sm:text-4xl text-lnBlack group-hover:text-papaya transition">iRACING.COM</div>
+                        <div class="font-mono text-xs text-lnBlack/60 mt-1">24h Daytona Winner</div>
+                    </div>
+                </div>
+
+                <div class="cut-corner-br bg-white border-2 border-lnBlack/15 hover:border-papaya p-7 flex flex-col justify-between h-44 group transition shadow-sm">
+                    <span class="font-mono text-[10px] uppercase tracking-widest text-papaya font-bold">07 // SOFTWARE CORE</span>
+                    <div>
+                        <div class="ln-headline text-3xl sm:text-4xl text-lnBlack group-hover:text-papaya transition">C++ / JAVA / JS</div>
+                        <div class="font-mono text-xs text-lnBlack/60 mt-1">Computer Science Eng.</div>
+                    </div>
+                </div>
+
+                <div class="cut-corner-br bg-white border-2 border-lnBlack/15 hover:border-papaya p-7 flex flex-col justify-between h-44 group transition shadow-sm">
+                    <span class="font-mono text-[10px] uppercase tracking-widest text-papaya font-bold">08 // TRACK EXP</span>
+                    <div>
+                        <div class="ln-headline text-3xl sm:text-4xl text-lnBlack group-hover:text-papaya transition">F4 &amp; GT3 REAL</div>
+                        <div class="font-mono text-xs text-lnBlack/60 mt-1">Jarama, Silverstone &amp; Lapland</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- =========================================================================
+         10. SECTION 8: FOOTER ("ALWAYS BRINGING THE FIGHT" — 1:1 LANDONORRIS.COM)
+    ========================================================================== -->
+    <footer id="contact" data-theme="dark" class="relative bg-lnBlack text-lnLight pt-24 pb-12 px-5 sm:px-10 overflow-hidden border-t border-white/15">
+        <div class="max-w-[1550px] mx-auto relative z-10">
+            
+            <!-- Giant Mixed-Font Closing Headline -->
+            <div class="text-center mb-14">
+                <div class="font-mono text-xs uppercase tracking-[0.3em] text-papaya mb-3">
+                    OPEN PIT-WALL CHANNEL // MADRID, SPAIN
+                </div>
+                <h2 class="ln-headline text-[13vw] sm:text-[10.5vw] leading-[0.86] text-white">
+                    ALWAYS <span class="ln-serif text-papaya">bringing</span> THE FIGHT.
+                </h2>
+            </div>
+
+            <!-- Center Cut-Corner CTA Buttons + Helmet Visor Portrait -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-end border-t border-white/15 pt-12">
+                
+                <!-- Left Column: Navigation Pages -->
+                <div class="lg:col-span-3 space-y-2 font-mono text-xs uppercase tracking-widest">
+                    <div class="text-papaya font-bold mb-3">// PAGES</div>
+                    <div><a href="#hero" class="text-white/70 hover:text-papaya transition">01. HOME</a></div>
+                    <div><a href="#manifesto" class="text-white/70 hover:text-papaya transition">02. MESSAGE &amp; MANIFESTO</a></div>
+                    <div><a href="#portals" class="text-white/70 hover:text-papaya transition">03. ON TRACK / OFF TRACK</a></div>
+                    <div><a href="#hall-of-fame" class="text-white/70 hover:text-papaya transition">04. HALL OF FAME</a></div>
+                    <div><a href="#telemetry-lab" class="text-white/70 hover:text-papaya transition">05. LIVE TELEMETRY LAB</a></div>
+                </div>
+
+                <!-- Center Column: Helmet Visor Graphic + Dual Papaya Cut-Corner CTAs -->
+                <div class="lg:col-span-6 flex flex-col items-center text-center">
+                    <div class="flex flex-wrap items-center justify-center gap-4 mb-8">
+                        <button onclick="copyEmailToast()" data-cursor="COPY EMAIL"
+                                class="cut-corner-br bg-papaya hover:bg-papayaHover text-lnBlack font-mono font-extrabold text-xs uppercase tracking-widest px-7 py-4 transition shadow-xl">
+                            BUSINESS ENQUIRIES (COPY EMAIL)
+                        </button>
+                        <a href="assets/Certificado_Practicas_Orange_Hugo_Thibault.pdf" target="_blank" rel="noopener" data-cursor="OPEN PDF"
+                           class="cut-corner-br bg-white/10 hover:bg-white hover:text-lnBlack text-white border border-white/20 font-mono font-bold text-xs uppercase tracking-widest px-7 py-4 transition">
+                            CERTIFICADO ORANGE PDF ↗
+                        </a>
+                    </div>
+                    <div class="font-mono text-xs text-white/50">
+                        DIRECT EMAIL: <strong class="text-papaya">HUGOTHIBAULTM@GMAIL.COM</strong>
+                    </div>
+                </div>
+
+                <!-- Right Column: Follow On Socials -->
+                <div class="lg:col-span-3 lg:text-right space-y-2 font-mono text-xs uppercase tracking-widest">
+                    <div class="text-papaya font-bold mb-3">// FOLLOW ON</div>
+                    <div><a href="https://github.com/hugothibaultm" target="_blank" rel="noopener" class="text-white/70 hover:text-papaya transition">GITHUB (@HUGOTHIBAULTM) ↗</a></div>
+                    <div><a href="https://www.linkedin.com" target="_blank" rel="noopener" class="text-white/70 hover:text-papaya transition">LINKEDIN ↗</a></div>
+                    <div><a href="#telemetry-lab" class="text-white/70 hover:text-papaya transition">MOTEC &amp; FASTF1 LAB ↗</a></div>
+                    <div><a href="#hall-of-fame" class="text-white/70 hover:text-papaya transition">iRACING PROFILE ↗</a></div>
+                </div>
+
+            </div>
+
+            <!-- Bottom Copyright & Back to Top -->
+            <div class="mt-14 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-[11px] text-white/40 uppercase tracking-widest">
+                <span>© 2026 HUGO THIBAULT. ALL RIGHTS RESERVED. INSPIRED BY LANDONORRIS.COM (OFF+BRAND).</span>
+                <button onclick="window.scrollTo({top:0, behavior:'smooth'})" class="text-papaya hover:underline">
+                    [ BACK TO TOP ↑ ]
+                </button>
+            </div>
+
+        </div>
+    </footer>
+
+    <!-- =========================================================================
+         11. TELEMETRY DETAIL MODAL (FOR PHOTOS & HALL OF FAME ITEMS)
+    ========================================================================== -->
+    <div id="telemetryModal" class="fixed inset-0 z-[9500] bg-lnBlack/90 backdrop-blur-xl hidden items-center justify-center p-4 sm:p-8">
+        <div class="bg-lnCardDark border-2 border-papaya cut-corner-lg max-w-4xl w-full overflow-hidden shadow-2xl">
+            <div class="bg-papaya text-lnBlack px-6 py-3.5 flex items-center justify-between font-mono text-xs font-extrabold uppercase tracking-widest">
+                <span id="modalLogTag">// TELEMETRY &amp; ENGINEERING ARCHIVE</span>
+                <button onclick="closeTelemetryModal()" class="bg-lnBlack text-white px-3 py-1 rounded hover:bg-lnBlack/80">
+                    [ CLOSE ESC ]
+                </button>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-12">
+                <div class="md:col-span-7 h-72 md:h-96 bg-lnBlack relative">
+                    <img id="modalLogImg" src="" alt="Session Detail" class="w-full h-full object-cover">
+                </div>
+                <div class="md:col-span-5 p-6 sm:p-8 flex flex-col justify-between text-lnLight">
+                    <div>
+                        <span id="modalLogYear" class="font-mono text-xs text-papaya uppercase tracking-widest"></span>
+                        <h3 id="modalLogTitle" class="ln-headline text-4xl text-white mt-1"></h3>
+                        <p id="modalLogDesc" class="text-sm text-white/75 mt-4 leading-relaxed"></p>
+                    </div>
+                    <div id="modalLogSpecs" class="mt-6 pt-4 border-t border-white/15 font-mono text-xs space-y-2"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Copy Toast -->
+    <div id="copyToast" class="fixed bottom-6 right-6 z-[9900] bg-papaya text-lnBlack font-mono font-extrabold text-xs uppercase tracking-widest px-5 py-3.5 cut-corner-br shadow-2xl translate-y-24 opacity-0 transition-all duration-300 pointer-events-none">
+        ✓ EMAIL COPIED: HUGOTHIBAULTM@GMAIL.COM
+    </div>
+
+    <!-- =========================================================================
+         12. MASTER JAVASCRIPT ENGINE (CONTOURS, VISOR CANVAS, GSAP, MOTEC)
+    ========================================================================== -->
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+
+        /* -----------------------------------------------------------------------
+           A. LENIS SMOOTH SCROLLING
+        ----------------------------------------------------------------------- */
+        let lenis;
+        try {
+            lenis = new Lenis({
+                duration: 1.15,
+                easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+                smoothWheel: true
+            });
+            lenis.on('scroll', ScrollTrigger.update);
+            gsap.ticker.add((time) => {
+                lenis.raf(time * 1000);
+            });
+            gsap.ticker.lagSmoothing(0);
+        } catch (err) {
+            console.warn("Native scroll fallback");
+        }
+
+        /* -----------------------------------------------------------------------
+           B. PRELOADER SEQUENCE ("LOAD THIBAULT" 0% -> 100%)
+        ----------------------------------------------------------------------- */
+        const lnPreloader = document.getElementById('lnPreloader');
+        const preloadPct = document.getElementById('preloadPct');
+        const preloadClipRect = document.getElementById('preloadClipRect');
+        const skipIntroBtn = document.getElementById('skipIntroBtn');
+
+        let introDone = false;
+        function finishPreloader() {
+            if (introDone) return;
+            introDone = true;
+            gsap.to(lnPreloader, {
+                yPercent: -100,
+                duration: 0.9,
+                ease: "power4.inOut",
+                onComplete: () => {
+                    lnPreloader.style.display = 'none';
+                }
+            });
+        }
+        skipIntroBtn.addEventListener('click', finishPreloader);
+
+        let loadObj = { p: 0 };
+        gsap.to(loadObj, {
+            p: 100,
+            duration: 1.8,
+            ease: "power2.inOut",
+            onUpdate: () => {
+                const v = Math.floor(loadObj.p);
+                preloadPct.textContent = v + '%';
+                const yPos = 200 - (v * 2);
+                preloadClipRect.setAttribute('y', yPos);
+            },
+            onComplete: () => setTimeout(finishPreloader, 180)
+        });
+
+        /* -----------------------------------------------------------------------
+           C. GLOBAL ANIMATED TOPOGRAPHIC CONTOUR LINES CANVAS
+              Morphs organically & switches palette based on active section theme
+        ----------------------------------------------------------------------- */
+        const topoCanvas = document.getElementById('topoBgCanvas');
+        const topoCtx = topoCanvas.getContext('2d');
+        let currentTheme = 'light'; // 'light', 'olive', 'dark'
+        let topoTime = 0;
+        let pointerX = 0.5;
+        let pointerY = 0.5;
+
+        function resizeTopoCanvas() {
+            topoCanvas.width = window.innerWidth;
+            topoCanvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeTopoCanvas);
+        resizeTopoCanvas();
+
+        window.addEventListener('mousemove', (e) => {
+            pointerX = e.clientX / window.innerWidth;
+            pointerY = e.clientY / window.innerHeight;
+        });
+
+        function renderTopoLines() {
+            topoTime += 0.004;
+            const w = topoCanvas.width;
+            const h = topoCanvas.height;
+            topoCtx.clearRect(0, 0, w, h);
+
+            if (currentTheme === 'light') {
+                topoCtx.strokeStyle = 'rgba(203, 203, 185, 0.55)';
+            } else if (currentTheme === 'olive') {
+                topoCtx.strokeStyle = 'rgba(54, 59, 37, 0.75)';
+            } else {
+                topoCtx.strokeStyle = 'rgba(255, 85, 0, 0.08)';
+            }
+            topoCtx.lineWidth = 1.4;
+
+            const numLines = 9;
+            for (let i = 0; i < numLines; i++) {
+                topoCtx.beginPath();
+                const baseY = (h / (numLines - 1)) * i;
+                for (let x = 0; x <= w; x += 40) {
+                    const wave1 = Math.sin(x * 0.0025 + topoTime + i * 0.6) * 48;
+                    const wave2 = Math.cos(x * 0.0012 - topoTime * 0.8 + i) * 32;
+                    const mouseShift = (pointerX - 0.5) * 35 * Math.sin((x / w) * Math.PI);
+                    const y = baseY + wave1 + wave2 + mouseShift;
+                    if (x === 0) topoCtx.moveTo(x, y);
+                    else topoCtx.lineTo(x, y);
+                }
+                topoCtx.stroke();
+            }
+            requestAnimationFrame(renderTopoLines);
+        }
+        requestAnimationFrame(renderTopoLines);
+
+        // Update theme & navbar color on scroll
+        const brandLogoText = document.getElementById('brandLogoText');
+        const brandSubText = document.getElementById('brandSubText');
+        document.querySelectorAll('section[data-theme], footer[data-theme]').forEach((sec) => {
+            ScrollTrigger.create({
+                trigger: sec,
+                start: "top 50%",
+                end: "bottom 50%",
+                onEnter: () => applySectionTheme(sec.getAttribute('data-theme')),
+                onEnterBack: () => applySectionTheme(sec.getAttribute('data-theme'))
+            });
+        });
+
+        function applySectionTheme(theme) {
+            currentTheme = theme;
+            if (theme === 'light') {
+                brandLogoText.className = "leading-[0.82] transition-colors duration-300 text-lnBlack";
+                brandSubText.className = "hidden sm:block font-mono text-[10px] uppercase tracking-[0.2em] leading-tight text-lnBlack/60 border-l border-current pl-3";
+            } else {
+                brandLogoText.className = "leading-[0.82] transition-colors duration-300 text-lnLight";
+                brandSubText.className = "hidden sm:block font-mono text-[10px] uppercase tracking-[0.2em] leading-tight text-lnLight/60 border-l border-current pl-3";
+            }
+        }
+
+        /* -----------------------------------------------------------------------
+           D. FULLSCREEN MENU OVERLAY & B&W PHOTO SWAP
+        ----------------------------------------------------------------------- */
+        const menuToggleBtn = document.getElementById('menuToggleBtn');
+        const fullscreenMenu = document.getElementById('fullscreenMenu');
+        const burgerLine1 = document.getElementById('burgerLine1');
+        const burgerLine2 = document.getElementById('burgerLine2');
+        let menuOpen = false;
+
+        function toggleFullscreenMenu() {
+            menuOpen = !menuOpen;
+            if (menuOpen) {
+                fullscreenMenu.classList.remove('hidden');
+                setTimeout(() => fullscreenMenu.classList.remove('opacity-0'), 10);
+                burgerLine1.style.transform = 'translateY(4px) rotate(45deg)';
+                burgerLine2.style.transform = 'translateY(-4px) rotate(-45deg)';
+                brandLogoText.className = "leading-[0.82] transition-colors duration-300 text-lnLight";
+            } else {
+                closeFullscreenMenu();
+            }
+        }
+
+        function closeFullscreenMenu() {
+            menuOpen = false;
+            fullscreenMenu.classList.add('opacity-0');
+            burgerLine1.style.transform = 'none';
+            burgerLine2.style.transform = 'none';
+            applySectionTheme(currentTheme);
+            setTimeout(() => fullscreenMenu.classList.add('hidden'), 450);
+        }
+
+        menuToggleBtn.addEventListener('click', toggleFullscreenMenu);
+
+        function swapMenuPhoto(url, tag, caption) {
+            const img = document.getElementById('menuPreviewImg');
+            const tagEl = document.getElementById('menuPreviewTag');
+            const capEl = document.getElementById('menuPreviewCaption');
+            if (img) img.src = url;
+            if (tagEl) tagEl.textContent = tag;
+            if (capEl) capEl.textContent = caption;
+        }
+
+        /* -----------------------------------------------------------------------
+           E. HERO INTERACTIVE HELMET VISOR SCRATCH-REVEAL CANVAS
+              (Exact Lando Norris Mechanic: Base Portrait + Brushed Telemetry Visor)
+        ----------------------------------------------------------------------- */
+        const scratchCanvas = document.getElementById('heroScratchCanvas');
+        const sCtx = scratchCanvas.getContext('2d');
+        const tapToLockBtn = document.getElementById('tapToLockBtn');
+        const lockVisorText = document.getElementById('lockVisorText');
+        const visorHintText = document.getElementById('visorHintText');
+
+        let visorLocked = false;
+        let trailPoints = [];
+
+        const baseDriverImg = new Image();
+        baseDriverImg.crossOrigin = "anonymous";
+        baseDriverImg.src = "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=1000&q=85";
+
+        function resizeScratchCanvas() {
+            const rect = scratchCanvas.parentElement.getBoundingClientRect();
+            scratchCanvas.width = rect.width;
+            scratchCanvas.height = rect.height;
+        }
+        window.addEventListener('resize', resizeScratchCanvas);
+        resizeScratchCanvas();
+
+        scratchCanvas.addEventListener('mousemove', (e) => {
+            if (visorLocked) return;
+            const rect = scratchCanvas.getBoundingClientRect();
+            trailPoints.push({
+                x: e.clientX - rect.left,
+                y: e.clientY - rect.top,
+                r: 72,
+                alpha: 1.0
+            });
+            if (trailPoints.length > 28) trailPoints.shift();
+        });
+
+        scratchCanvas.addEventListener('touchmove', (e) => {
+            if (visorLocked) return;
+            const rect = scratchCanvas.getBoundingClientRect();
+            const t = e.touches[0];
+            trailPoints.push({
+                x: t.clientX - rect.left,
+                y: t.clientY - rect.top,
+                r: 72,
+                alpha: 1.0
+            });
+            if (trailPoints.length > 28) trailPoints.shift();
+        }, { passive: true });
+
+        tapToLockBtn.addEventListener('click', () => {
+            visorLocked = !visorLocked;
+            if (visorLocked) {
+                lockVisorText.textContent = "BACK TO BRUSH MODE";
+                visorHintText.textContent = "VISOR LOCKED // FULL TELEMETRY HUD ACTIVE";
+                tapToLockBtn.classList.add('bg-papaya', 'text-lnBlack');
+            } else {
+                lockVisorText.textContent = "TAP TO LOCK VISOR";
+                visorHintText.textContent = "MOVE CURSOR OVER PORTRAIT TO REVEAL TELEMETRY VISOR";
+                tapToLockBtn.classList.remove('bg-papaya', 'text-lnBlack');
+            }
+        });
+
+        function renderHeroVisorCanvas() {
+            const w = scratchCanvas.width;
+            const h = scratchCanvas.height;
+            sCtx.clearRect(0, 0, w, h);
+
+            // 1. Draw Desaturated Editorial Base Layer
+            if (baseDriverImg.complete && baseDriverImg.naturalWidth > 0) {
+                sCtx.save();
+                sCtx.filter = 'grayscale(100%) contrast(118%) brightness(0.88)';
+                sCtx.drawImage(baseDriverImg, 0, 0, w, h);
+                sCtx.restore();
+            } else {
+                sCtx.fillStyle = '#18191B';
+                sCtx.fillRect(0, 0, w, h);
+            }
+
+            // Subtle Base Contour Grid
+            sCtx.strokeStyle = 'rgba(255,255,255,0.08)';
+            sCtx.lineWidth = 1;
+            for (let y = 40; y < h; y += 45) {
+                sCtx.beginPath();
+                sCtx.moveTo(0, y);
+                sCtx.lineTo(w, y);
+                sCtx.stroke();
+            }
+
+            // 2. Draw Revealed Papaya Helmet Visor & Telemetry HUD Layer inside Clipped Brush / Locked State
+            sCtx.save();
+            if (!visorLocked) {
+                sCtx.beginPath();
+                for (let i = 0; i < trailPoints.length; i++) {
+                    const pt = trailPoints[i];
+                    sCtx.moveTo(pt.x + pt.r, pt.y);
+                    sCtx.arc(pt.x, pt.y, pt.r * pt.alpha, 0, Math.PI * 2);
+                    pt.alpha *= 0.965;
+                }
+                trailPoints = trailPoints.filter(pt => pt.alpha > 0.08);
+                sCtx.clip();
+            }
+
+            // High-Contrast Color Photo + Papaya Helmet Visor Band + Telemetry HUD
+            if (baseDriverImg.complete && baseDriverImg.naturalWidth > 0) {
+                sCtx.filter = 'contrast(130%) saturate(135%)';
+                sCtx.drawImage(baseDriverImg, 0, 0, w, h);
+                sCtx.filter = 'none';
+            }
+
+            // Glowing Papaya Iridescent Helmet Visor Shield Overlay
+            const visorGrad = sCtx.createLinearGradient(0, h * 0.18, w, h * 0.62);
+            visorGrad.addColorStop(0, 'rgba(255, 85, 0, 0.82)');
+            visorGrad.addColorStop(0.5, 'rgba(255, 165, 0, 0.72)');
+            visorGrad.addColorStop(1, 'rgba(0, 240, 255, 0.65)');
+            sCtx.fillStyle = visorGrad;
+
+            // Helmet Visor Shape
+            sCtx.beginPath();
+            sCtx.moveTo(w * 0.08, h * 0.28);
+            sCtx.quadraticCurveTo(w * 0.5, h * 0.20, w * 0.92, h * 0.28);
+            sCtx.lineTo(w * 0.88, h * 0.52);
+            sCtx.quadraticCurveTo(w * 0.5, h * 0.58, w * 0.12, h * 0.52);
+            sCtx.closePath();
+            sCtx.fill();
+
+            // Visor Telemetry HUD Graphics
+            sCtx.strokeStyle = '#111112';
+            sCtx.lineWidth = 2.5;
+            sCtx.stroke();
+
+            sCtx.fillStyle = '#111112';
+            sCtx.font = 'bold 12px "JetBrains Mono", monospace';
+            sCtx.fillText('VISOR HUD // F4 JARAMA & GT3 SILVERSTONE', w * 0.15, h * 0.36);
+            sCtx.font = '800 22px "Anton", sans-serif';
+            sCtx.fillText('DELTA: -0.248s  |  248 KM/H  |  2.4G LAT', w * 0.15, h * 0.43);
+            sCtx.font = 'bold 11px "JetBrains Mono", monospace';
+            sCtx.fillText('ORANGE CX ANALYTICS // MOTEC i2 PRO ACTIVE', w * 0.15, h * 0.48);
+
+            sCtx.restore();
+
+            requestAnimationFrame(renderHeroVisorCanvas);
+        }
+        requestAnimationFrame(renderHeroVisorCanvas);
+
+        /* -----------------------------------------------------------------------
+           F. GSAP SCROLL ANIMATIONS (SIGNATURE DRAW + HORIZONTAL PHOTO STRIP)
+        ----------------------------------------------------------------------- */
+        const sigPath = document.querySelector('.signature-path');
+        if (sigPath) {
+            ScrollTrigger.create({
+                trigger: '#hugoSignatureSvg',
+                start: 'top 80%',
+                onEnter: () => sigPath.classList.add('drawn')
+            });
+        }
+
+        // Horizontal Scroll Strip on vertical scroll
+        const stripTrack = document.getElementById('horizontalStripTrack');
+        if (stripTrack) {
+            gsap.to(stripTrack, {
+                x: () => -(stripTrack.scrollWidth - window.innerWidth + 80),
+                ease: "none",
+                scrollTrigger: {
+                    trigger: "#horizontalStripWrapper",
+                    start: "top 20%",
+                    end: () => `+=${stripTrack.scrollWidth - window.innerWidth}`,
+                    pin: true,
+                    scrub: 1,
+                    invalidateOnRefresh: true
+                }
+            });
+        }
+
+        /* -----------------------------------------------------------------------
+           G. HALL OF FAME 12 STAGGERED CUT-CORNER CARDS (1:1 LANDONORRIS.COM)
+        ----------------------------------------------------------------------- */
+        const hofItems = [
+            { title: "F4 Jarama Test", year: "2024", tag: "SINGLE-SEATER", metric: "248 KM/H // 94 BAR", img: "https://images.unsplash.com/photo-1617531653332-bd46c24f2068?auto=format&fit=crop&w=700&q=80", desc: "Test privado en monoplaza Fórmula 4 en el Circuito del Jarama. Correlación del 98.2% entre telemetría de simulador y asfalto real." },
+            { title: "24h Daytona Winner", year: "2023", tag: "P1 OVERALL", metric: "ENDURANCE WINNER", img: "https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&w=700&q=80", desc: "Victoria absoluta en las 24 Horas de Daytona en iRacing gestionando estrategia de combustible, relevos nocturnos y ritmo constante." },
+            { title: "GT3 Silverstone", year: "2024", tag: "UK TRACK DAY", metric: ">2.2G LATERAL", img: "https://images.unsplash.com/photo-1544829099-b9a0c07fad1a?auto=format&fit=crop&w=700&q=80", desc: "Pilotaje real de un GT3 en Silverstone dominando el paso por curva rápida en Maggotts y Becketts." },
+            { title: "McLaren Arctic Ice", year: "2024", tag: "LAPLAND -22°C", metric: "LOW-MU YAW CONTROL", img: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=700&q=80", desc: "McLaren Arctic Experience en Laponia (Finlandia). Control de deslizamiento y transferencia de masas sobre hielo y nieve." },
+            { title: "Orange CX Cockpit", year: "2026", tag: "CORPORATE BI", metric: "POWER BI & SQL", img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=700&q=80", desc: "Analista de datos en CX Cockpit Analytics en Orange España diseñando cuadros de mando ejecutivos y automatizando flujos SQL/Python." },
+            { title: "F1 Esports Top 10", year: "2022", tag: "KR GAMING", metric: "TOP 10 SPAIN", img: "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=700&q=80", desc: "Clasificado entre los 10 mejores pilotos de España en F1 Esports compitiendo oficialmente para KR Gaming." },
+            { title: "F4 Regional Champ", year: "2024", tag: "CHAMPION P1", metric: "FIA F4 SERIES", img: "https://images.unsplash.com/photo-1617531653332-bd46c24f2068?auto=format&fit=crop&w=700&q=80", desc: "Campeón del F4 Regional Tour con setups desarrollados a partir de telemetría MoTeC." },
+            { title: "24h Spa Podium", year: "2023", tag: "TOP 3 FINISH", metric: "SPA ENDURANCE", img: "https://images.unsplash.com/photo-1532906619279-a4b7267faa66?auto=format&fit=crop&w=700&q=80", desc: "Podio en las exigentes 24 Horas de Spa-Francorchamps con gestión óptima de neumáticos en tanda larga." },
+            { title: "Monaco & Dubai VIP", year: "2024", tag: "PIT-WALL OPS", metric: "LIVE STRATEGY", img: "https://images.unsplash.com/photo-1532906619279-a4b7267faa66?auto=format&fit=crop&w=700&q=80", desc: "Acceso directo a boxes en las 24h de Dubái y Paddock del GP de Mónaco estudiando la operativa de ingenieros de pista." },
+            { title: "FastF1 Telemetry", year: "2025", tag: "PYTHON R&D", metric: "60HZ PIPELINE", img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=700&q=80", desc: "Pipeline en Python con FastF1, Pandas y MoTeC para cálculo automático de deltas por micro-sector." },
+            { title: "WSO Vice-Champion", year: "2021", tag: "P2 EUROPE", metric: "WSO F1 SERIES", img: "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?auto=format&fit=crop&w=700&q=80", desc: "Subcampeón europeo en la temporada debut dentro de la World Simulators Organization." },
+            { title: "B.Sc. Computer Sci", year: "2026", tag: "ENGINEERING", metric: "ALGORITHMS & AI", img: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=700&q=80", desc: "Grado en Ingeniería Informática especializándome en ingeniería de datos, arquitectura de software y análisis en tiempo real." }
+        ];
+
+        const hofGrid = document.getElementById('hofGrid');
+        if (hofGrid) {
+            hofGrid.innerHTML = hofItems.map((item, idx) => {
+                const staggerClass = (idx % 2 === 1) ? 'hof-col-even' : '';
+                return `
+                <div onclick="openHofModal(${idx})" data-cursor="INSPECT"
+                     class="hof-card ${staggerClass} cut-corner-br bg-lnCardDark border border-white/15 hover:border-papaya h-80 p-6 flex flex-col justify-between cursor-pointer overflow-hidden group">
+                    
+                    <!-- Hover Action Photo Crossfade -->
+                    <img src="${item.img}" alt="${item.title}"
+                         class="hof-hover-photo absolute inset-0 w-full h-full object-cover pointer-events-none">
+                    <div class=" absolute inset-0 bg-gradient-to-t from-lnBlack via-lnBlack/40 to-transparent pointer-events-none"></div>
+
+                    <!-- Top Row -->
+                    <div class="relative z-10 flex items-center justify-between font-mono text-[10px] uppercase tracking-widest">
+                        <span class="text-papaya font-bold">${item.tag}</span>
+                        <span class="bg-white/10 group-hover:bg-papaya group-hover:text-lnBlack text-white px-2 py-0.5 rounded transition">${item.year}</span>
+                    </div>
+
+                    <!-- Center Default Stylized Helmet/Telemetry SVG -->
+                    <div class="hof-default-helmet relative z-10 my-auto flex items-center justify-center">
+                        <svg class="w-28 h-28 text-white/80 group-hover:text-papaya transition" viewBox="0 0 120 120" fill="none">
+                            <path d="M22 82 C18 46, 40 20, 72 20 C96 20, 108 40, 108 68 L108 88 L86 100 L32 100 Z" stroke="currentColor" stroke-width="2.5"/>
+                            <path d="M68 44 L108 50 L108 72 L68 68 Z" fill="#FF5500" fill-opacity="0.85"/>
+                            <path d="M32 82 L78 82" stroke="#FF5500" stroke-width="2"/>
+                        </svg>
+                    </div>
+
+                    <!-- Bottom Title & Metric -->
+                    <div class="relative z-10">
+                        <h3 class="ln-headline text-3xl text-white group-hover:text-papaya transition">${item.title}</h3>
+                        <div class="font-mono text-[11px] text-white/60 group-hover:text-white mt-0.5 flex justify-between">
+                            <span>${item.metric}</span>
+                            <span class="text-papaya font-bold">→</span>
+                        </div>
+                    </div>
+                </div>
+                `;
+            }).join('');
+        }
+
+        function openHofModal(idx) {
+            const item = hofItems[idx];
+            document.getElementById('modalLogTag').textContent = `// HALL OF FAME ARCHIVE — 0${idx + 1}`;
+            document.getElementById('modalLogYear').textContent = `${item.tag} // ${item.year}`;
+            document.getElementById('modalLogTitle').textContent = item.title;
+            document.getElementById('modalLogImg').src = item.img;
+            document.getElementById('modalLogDesc').textContent = item.desc;
+            document.getElementById('modalLogSpecs').innerHTML = `
+                <div class="flex justify-between border-b border-white/10 pb-1.5"><span class="text-white/50">KEY METRIC:</span><strong class="text-papaya">${item.metric}</strong></div>
+                <div class="flex justify-between border-b border-white/10 pb-1.5"><span class="text-white/50">SEASON / YEAR:</span><strong class="text-white">${item.year}</strong></div>
+                <div class="flex justify-between"><span class="text-white/50">VERIFIED TELEMETRY:</span><strong class="text-telemetryGreen">MOTEC / ORANGE BI</strong></div>
+            `;
+            const modal = document.getElementById('telemetryModal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function openTelemetryModal(idx) {
+            openHofModal(idx);
+        }
+
+        function closeTelemetryModal() {
+            const modal = document.getElementById('telemetryModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeTelemetryModal();
+        });
+
+        /* -----------------------------------------------------------------------
+           H. 3D CIRCUIT RIBBON + MOTEC DUAL-CANVAS TELEMETRY OSCILLOSCOPE
+        ----------------------------------------------------------------------- */
+        const circuitConfigs = {
+            jarama: {
+                name: "CIRCUITO DEL JARAMA // 3.850 KM",
+                delta: "-0.248s",
+                path: "M45 170 L45 65 C45 35, 95 35, 105 60 L120 105 C130 125, 175 115, 190 80 L210 45 C230 28, 260 55, 245 95 L210 160 C195 185, 140 190, 115 165 L85 140 L45 170 Z",
+                opt: [236, 246, 248, 172, 116, 128, 188, 218, 194, 105, 119, 178, 225, 244],
+                ref: [232, 240, 241, 162, 109, 120, 180, 210, 186, 98,  111, 170, 218, 238],
+                thr: [100, 100, 100, 12,  0,   68,  100, 100, 38,  0,   60,  100, 100, 100],
+                brk: [0,   0,   0,   94,  56,  0,   0,   0,   70,  96,  22,  0,   0,   0],
+                nBrake: "Frenada regresiva a 94 bar al final de recta en Jarama rotando el F4 sin bloquear neumáticos.",
+                nApex: "+6.5 km/h de velocidad mínima en Fangio y Bugatti gracias a menor ángulo de dirección.",
+                nExit: "100% acelerador 0.14s antes saliendo a recta principal para consolidar -0.248s."
+            },
+            silverstone: {
+                name: "SILVERSTONE GP CIRCUIT // 5.891 KM",
+                delta: "-0.412s",
+                path: "M55 165 L40 95 C35 60, 75 35, 115 45 L165 35 C210 30, 255 65, 245 110 L225 165 C205 190, 145 185, 125 155 L95 175 L55 165 Z",
+                opt: [255, 268, 242, 214, 186, 160, 198, 238, 258, 268, 182, 134, 190, 250],
+                ref: [250, 262, 234, 204, 176, 150, 188, 230, 250, 261, 173, 125, 180, 242],
+                thr: [100, 100, 86,  62,  35,  15,  92,  100, 100, 100, 10,  0,   88,  100],
+                brk: [0,   0,   0,   25,  48,  72,  0,   0,   0,   0,   88,  45,  0,   0],
+                nBrake: "Modulación fina de freno en Maggotts-Becketts estabilizando la plataforma aerodinámica del GT3.",
+                nApex: "+9.0 km/h en Chapel manteniendo fuerzas laterales superiores a 2.2G.",
+                nExit: "Tracción limpia hacia Hangar Straight sin intrusión del control de tracción (-0.412s)."
+            },
+            spa: {
+                name: "SPA-FRANCORCHAMPS // 7.004 KM",
+                delta: "-0.680s",
+                path: "M40 160 L65 55 C75 30, 135 30, 165 55 L245 75 C265 95, 250 145, 215 165 L135 180 C95 185, 60 175, 40 160 Z",
+                opt: [240, 264, 256, 270, 279, 178, 138, 166, 224, 196, 200, 236, 260, 274],
+                ref: [235, 258, 245, 261, 271, 168, 130, 156, 215, 183, 190, 228, 252, 266],
+                thr: [100, 100, 98,  100, 100, 10,  0,   80,  100, 45,  90,  100, 100, 100],
+                brk: [0,   0,   0,   0,   0,   95,  54,  0,   0,   58,  0,   0,   0,   0],
+                nBrake: "Frenada al límite en Les Combes tras alcanzar 279 km/h en Kemmel Straight.",
+                nApex: "Eau Rouge y Raidillon a fondo (100% throttle) y +10 km/h en el doble ápice de Pouhon.",
+                nExit: "Gestión térmica ideal en tanda nocturna de las 24h de Spa logrando -0.680s."
+            }
+        };
+
+        let activeCircuit = 'jarama';
+        let scrubRatio = 0.42;
+
+        const mSpeedCanvas = document.getElementById('motecSpeedCanvas');
+        const mPedalCanvas = document.getElementById('motecPedalCanvas');
+
+        function renderMotecCanvases() {
+            if (!mSpeedCanvas || !mPedalCanvas) return;
+            const cfg = circuitConfigs[activeCircuit];
+
+            const sRect = mSpeedCanvas.parentElement.getBoundingClientRect();
+            mSpeedCanvas.width = sRect.width * window.devicePixelRatio;
+            mSpeedCanvas.height = sRect.height * window.devicePixelRatio;
+
+            const pRect = mPedalCanvas.parentElement.getBoundingClientRect();
+            mPedalCanvas.width = pRect.width * window.devicePixelRatio;
+            mPedalCanvas.height = pRect.height * window.devicePixelRatio;
+
+            const sCtx2 = mSpeedCanvas.getContext('2d');
+            const pCtx2 = mPedalCanvas.getContext('2d');
+            sCtx2.scale(window.devicePixelRatio, window.devicePixelRatio);
+            pCtx2.scale(window.devicePixelRatio, window.devicePixelRatio);
+
+            const sw = sRect.width, sh = sRect.height;
+            const pw = pRect.width, ph = pRect.height;
+            const n = cfg.opt.length;
+            const getX = (i, w) => (i / (n - 1)) * (w - 30) + 15;
+            const getSY = (v) => sh - ((v - 80) / 215) * (sh - 30) - 15;
+
+            // Grid lines
+            sCtx2.clearRect(0, 0, sw, sh);
+            sCtx2.strokeStyle = 'rgba(255,255,255,0.06)';
+            for (let g = 1; g < 5; g++) {
+                const gy = (sh / 5) * g;
+                sCtx2.beginPath(); sCtx2.moveTo(0, gy); sCtx2.lineTo(sw, gy); sCtx2.stroke();
+            }
+
+            // Reference Cyan Dashed Line
+            sCtx2.beginPath();
+            sCtx2.setLineDash([5, 4]);
+            sCtx2.strokeStyle = '#00F0FF';
+            sCtx2.lineWidth = 2;
+            cfg.ref.forEach((v, i) => {
+                const x = getX(i, sw), y = getSY(v);
+                if (i === 0) sCtx2.moveTo(x, y); else sCtx2.lineTo(x, y);
+            });
+            sCtx2.stroke();
+            sCtx2.setLineDash([]);
+
+            // Optimal Papaya Line
+            sCtx2.beginPath();
+            cfg.opt.forEach((v, i) => {
+                const x = getX(i, sw), y = getSY(v);
+                if (i === 0) sCtx2.moveTo(x, y); else sCtx2.lineTo(x, y);
+            });
+            sCtx2.strokeStyle = '#FF5500';
+            sCtx2.lineWidth = 3;
+            sCtx2.stroke();
+
+            // Pedals Canvas
+            pCtx2.clearRect(0, 0, pw, ph);
+            cfg.brk.forEach((b, i) => {
+                if (b > 0) {
+                    const x = getX(i, pw);
+                    const bh = (b / 100) * (ph - 20);
+                    pCtx2.fillStyle = 'rgba(255, 85, 0, 0.45)';
+                    pCtx2.fillRect(x - 9, ph - bh - 10, 18, bh);
+                }
+            });
+
+            pCtx2.beginPath();
+            cfg.thr.forEach((t, i) => {
+                const x = getX(i, pw);
+                const y = ph - (t / 100) * (ph - 24) - 12;
+                if (i === 0) pCtx2.moveTo(x, y); else pCtx2.lineTo(x, y);
+            });
+            pCtx2.strokeStyle = '#10B981';
+            pCtx2.lineWidth = 2.5;
+            pCtx2.stroke();
+
+            // Crosshair
+            const idx = Math.min(n - 1, Math.max(0, Math.round(scrubRatio * (n - 1))));
+            const cx = getX(idx, sw);
+            const cy = getSY(cfg.opt[idx]);
+
+            sCtx2.strokeStyle = 'rgba(255,255,255,0.45)';
+            sCtx2.beginPath(); sCtx2.moveTo(cx, 0); sCtx2.lineTo(cx, sh); sCtx2.stroke();
+            sCtx2.fillStyle = '#FF5500';
+            sCtx2.beginPath(); sCtx2.arc(cx, cy, 5.5, 0, Math.PI * 2); sCtx2.fill();
+
+            const cxP = getX(idx, pw);
+            pCtx2.strokeStyle = 'rgba(255,255,255,0.45)';
+            pCtx2.beginPath(); pCtx2.moveTo(cxP, 0); pCtx2.lineTo(cxP, ph); pCtx2.stroke();
+
+            // Update Readouts & 3D Track Ribbon Car Dot Position
+            document.getElementById('labDist').textContent = `${Math.round((idx / (n - 1)) * 4100)} m`;
+            document.getElementById('labSpeed').textContent = `${cfg.opt[idx]} km/h (vs ${cfg.ref[idx]})`;
+            document.getElementById('labPedals').textContent = `${cfg.thr[idx]}% / ${cfg.brk[idx]} BAR`;
+
+            const ribbonMainPath = document.getElementById('ribbonMainPath');
+            const ribbonCarDot = document.getElementById('ribbonCarDot');
+            if (ribbonMainPath && ribbonCarDot && ribbonMainPath.getTotalLength) {
+                const totalLen = ribbonMainPath.getTotalLength();
+                const pt = ribbonMainPath.getPointAtLength(scrubRatio * totalLen);
+                ribbonCarDot.setAttribute('cx', pt.x);
+                ribbonCarDot.setAttribute('cy', pt.y);
+            }
+        }
+
+        function switchTelemetryCircuit(key) {
+            activeCircuit = key;
+            const cfg = circuitConfigs[key];
+            document.querySelectorAll('.circuit-tab').forEach(btn => {
+                btn.className = "circuit-tab cut-corner-br bg-lnCardDark text-white/70 hover:text-white border border-white/15 font-mono font-bold text-xs uppercase tracking-widest px-5 py-3.5 transition";
+            });
+            const activeBtn = document.getElementById(`circuitBtn-${key}`);
+            if (activeBtn) {
+                activeBtn.className = "circuit-tab cut-corner-br bg-papaya text-lnBlack font-mono font-extrabold text-xs uppercase tracking-widest px-5 py-3.5 transition";
+            }
+
+            document.getElementById('ribbonTrackName').textContent = cfg.name;
+            document.getElementById('labDelta').textContent = cfg.delta;
+            document.getElementById('ribbonMainPath').setAttribute('d', cfg.path);
+            document.getElementById('ribbonShadowPath').setAttribute('d', cfg.path);
+            document.getElementById('noteBrake').textContent = cfg.nBrake;
+            document.getElementById('noteApex').textContent = cfg.nApex;
+            document.getElementById('noteExit').textContent = cfg.nExit;
+
+            renderMotecCanvases();
+        }
+
+        [mSpeedCanvas, mPedalCanvas].forEach(canv => {
+            if (!canv) return;
+            canv.addEventListener('mousemove', (e) => {
+                const r = canv.getBoundingClientRect();
+                scrubRatio = Math.min(1, Math.max(0, (e.clientX - r.left) / r.width));
+                renderMotecCanvases();
+            });
+            canv.addEventListener('touchmove', (e) => {
+                const r = canv.getBoundingClientRect();
+                scrubRatio = Math.min(1, Math.max(0, (e.touches[0].clientX - r.left) / r.width));
+                renderMotecCanvases();
+            }, { passive: true });
+        });
+
+        window.addEventListener('resize', renderMotecCanvases);
+        window.addEventListener('load', renderMotecCanvases);
+
+        /* -----------------------------------------------------------------------
+           I. CUSTOM FOLLOWER CURSOR & EMAIL CLIPBOARD TOAST
+        ----------------------------------------------------------------------- */
+        const customCursor = document.getElementById('customCursor');
+        const customCursorLabel = document.getElementById('customCursorLabel');
+        let cX = window.innerWidth / 2, cY = window.innerHeight / 2;
+        let tX = cX, tY = cY;
+
+        window.addEventListener('mousemove', (e) => {
+            tX = e.clientX;
+            tY = e.clientY;
+        });
+
+        function animateFollowerCursor() {
+            cX += (tX - cX) * 0.2;
+            cY += (tY - cY) * 0.2;
+            if (customCursor) {
+                customCursor.style.left = cX + 'px';
+                customCursor.style.top = cY + 'px';
+            }
+            requestAnimationFrame(animateFollowerCursor);
+        }
+        requestAnimationFrame(animateFollowerCursor);
+
+        document.querySelectorAll('[data-cursor]').forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                customCursor.classList.add('cursor-pill');
+                customCursorLabel.textContent = el.getAttribute('data-cursor');
+                customCursorLabel.style.opacity = '1';
+            });
+            el.addEventListener('mouseleave', () => {
+                customCursor.classList.remove('cursor-pill');
+                customCursorLabel.style.opacity = '0';
+            });
+        });
+
+        function copyEmailToast() {
+            const ta = document.createElement('textarea');
+            ta.value = 'hugothibaultm@gmail.com';
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand('copy');
+            document.body.removeChild(ta);
+
+            const toast = document.getElementById('copyToast');
+            toast.classList.remove('translate-y-24', 'opacity-0');
+            setTimeout(() => toast.classList.add('translate-y-24', 'opacity-0'), 2800);
+        }
+    </script>
+</body>
+</html>
